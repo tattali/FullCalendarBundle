@@ -4,7 +4,7 @@ services:
         public: false
 
     full_calendar.service.calendar:
-        class: Toiba\FullCalendarBundle\Controller\CalendarController
+        class: Toiba\FullCalendarBundle\Service\Calendar
         arguments:
             - "@full_calendar.service.serializer"
             - "@event_dispatcher"

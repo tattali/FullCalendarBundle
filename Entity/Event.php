@@ -2,7 +2,7 @@
 
 namespace Toiba\FullCalendarBundle\Entity;
 
-class Event extends FullCalendarEvent
+class Event
 {
     /**
      * @var integer
