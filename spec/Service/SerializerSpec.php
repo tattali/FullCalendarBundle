@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\AncaRebeca\FullCalendarBundle\Service;
+namespace spec\Toiba\FullCalendarBundle\Service;
 
-use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
+use Toiba\FullCalendarBundle\Entity\FullCalendarEvent;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 
@@ -10,7 +10,7 @@ class SerializerSpec extends ObjectBehavior
 {
     function it_is_initializable()
     {
-        $this->shouldHaveType('AncaRebeca\FullCalendarBundle\Service\Serializer');
+        $this->shouldHaveType('Toiba\FullCalendarBundle\Service\Serializer');
     }
 
     function it_serialzes_data_successfully(FullCalendarEvent $event1, FullCalendarEvent $event2)

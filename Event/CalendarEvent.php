@@ -1,8 +1,8 @@
 <?php
 
-namespace AncaRebeca\FullCalendarBundle\Event;
+namespace Toiba\FullCalendarBundle\Event;
 
-use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
+use Toiba\FullCalendarBundle\Entity\Event;
 use Symfony\Component\EventDispatcher\Event as EventDispatcher;
 
 class CalendarEvent extends EventDispatcher
@@ -25,18 +25,18 @@ class CalendarEvent extends EventDispatcher
     protected $filters;
 
     /**
-     * @var FullCalendarEvent[]
+     * @var Event[]
      */
     protected $events = [];
 
     /**
-     * @param \Datetime $star
+     * @param \Datetime $start
      * @param \Datetime $end
      * @param array $filters
      */
-    public function __construct(\Datetime $star, \Datetime $end, array $filters)
+    public function __construct(\Datetime $start, \Datetime $end, array $filters)
     {
-        $this->start = $star;
+        $this->start = $start;
         $this->end = $end;
         $this->filters = $filters;
     }
@@ -66,11 +66,11 @@ class CalendarEvent extends EventDispatcher
     }
 
     /**
-     * @param FullCalendarEvent $event
+     * @param Event $event
      *
      * @return $this
      */
-    public function addEvent(FullCalendarEvent $event)
+    public function addEvent(Event $event)
     {
         if (!in_array($event, $this->events, true)) {
             $this->events[] = $event;
@@ -80,7 +80,7 @@ class CalendarEvent extends EventDispatcher
     }
 
     /**
-     * @return FullCalendarEvent[]
+     * @return Event[]
      */
     public function getEvents()
     {

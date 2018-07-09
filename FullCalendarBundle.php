@@ -1,6 +1,6 @@
 <?php
 
-namespace AncaRebeca\FullCalendarBundle;
+namespace Toiba\FullCalendarBundle;
 
 use Symfony\Component\HttpKernel\Bundle\Bundle;
 

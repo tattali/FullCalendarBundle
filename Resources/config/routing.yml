@@ -1,4 +1,4 @@
-ancarebeca_full_calendar_load:
-    path:     /full-calendar/load
+full_calendar_load:
+    path:     /fc-load-events
     defaults:
         _controller: FullCalendarBundle:Calendar:load

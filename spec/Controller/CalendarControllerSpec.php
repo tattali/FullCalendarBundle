@@ -1,8 +1,8 @@
 <?php
 
-namespace spec\AncaRebeca\FullCalendarBundle\Controller;
+namespace spec\Toiba\FullCalendarBundle\Controller;
 
-use AncaRebeca\FullCalendarBundle\Service\Calendar;
+use Toiba\FullCalendarBundle\Service\Calendar;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\DependencyInjection\ContainerInterface;
@@ -10,7 +10,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 /**
- * @mixin \AncaRebeca\FullCalendarBundle\Controller\CalendarController
+ * @mixin \Toiba\FullCalendarBundle\Controller\CalendarController
  */
 class CalendarControllerSpec extends ObjectBehavior
 {
@@ -21,7 +21,7 @@ class CalendarControllerSpec extends ObjectBehavior
 
     function it_is_initializable()
     {
-        $this->shouldHaveType('AncaRebeca\FullCalendarBundle\Controller\CalendarController');
+        $this->shouldHaveType('Toiba\FullCalendarBundle\Controller\CalendarController');
     }
 
     function it_is_a_Symfony_controller()
@@ -35,7 +35,7 @@ class CalendarControllerSpec extends ObjectBehavior
         $request->get('end')->willReturn('2016-03-19 15:11:00');
         $request->get('filters', [])->willReturn([]);
 
-        $container->get('anca_rebeca_full_calendar.service.calendar')->willReturn($calendar);
+        $container->get('full_calendar.service.calendar')->willReturn($calendar);
 
         $data = <<<JSON
 [

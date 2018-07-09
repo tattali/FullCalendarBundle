@@ -1,9 +1,9 @@
 {
-    "name": "ancarebeca/full-calendar-bundle",
-    "description": "Symfony2 integration with the library FullCalendar.js",
+    "name": "toiba/fullcalendar-bundle",
+    "description": "Symfony3 integration with the library FullCalendar.js",
     "type": "symfony-bundle",
-    "keywords": ["calendar", "fullcalendar", "jquery calendar", "symfony2 calendar", "symfony2 bundle"],
-    "homepage": "https://github.com/ancarebeca/FullCalendarBundle",
+    "keywords": ["calendar", "fullcalendar", "jquery calendar", "symfony3 calendar", "symfony3 bundle"],
+    "homepage": "https://github.com/toiba/FullCalendarBundle",
     "license": "MIT",
     "authors": [
         {
@@ -22,12 +22,12 @@
     },
     "autoload": {
         "psr-4": {
-            "AncaRebeca\\FullCalendarBundle\\": ""
+            "Toiba\\FullCalendarBundle\\": ""
         }
     },
     "autoload-dev": {
         "psr-4": {
-            "spec\\AncaRebeca\\FullCalendarBundle\\": "spec"
+            "spec\\Toiba\\FullCalendarBundle\\": "spec"
         }
     }
 }

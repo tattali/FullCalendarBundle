@@ -1,6 +1,6 @@
 <?php
 
-namespace AncaRebeca\FullCalendarBundle\Model;
+namespace Toiba\FullCalendarBundle\Entity;
 
 class Event extends FullCalendarEvent
 {
@@ -81,10 +81,11 @@ class Event extends FullCalendarEvent
      * @param string $title
      * @param \DateTime $start
      */
-    public function __construct($title, \DateTime $start)
+    public function __construct($title, \DateTime $start, \DateTime $end)
     {
         $this->title = $title;
         $this->startDate = $start;
+        $this->endDate = $end;
     }
 
     /**

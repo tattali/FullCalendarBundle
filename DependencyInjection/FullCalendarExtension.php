@@ -1,6 +1,6 @@
 <?php
 
-namespace AncaRebeca\FullCalendarBundle\DependencyInjection;
+namespace Toiba\FullCalendarBundle\DependencyInjection;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\Config\FileLocator;

@@ -1,8 +1,8 @@
 <?php
 
-namespace AncaRebeca\FullCalendarBundle\Service;
+namespace Toiba\FullCalendarBundle\Service;
 
-use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
+use Toiba\FullCalendarBundle\Entity\FullCalendarEvent;
 
 class Serializer implements SerializerInterface
 {

@@ -1,33 +1,31 @@
 ## FullCalendarBundle
 
-[![Build Status](https://travis-ci.org/ancarebeca/FullCalendarBundle.svg)](https://travis-ci.org/ancarebeca/FullCalendarBundle)
+[![Build Status](https://travis-ci.org/toiba/FullCalendarBundle.svg)](https://travis-ci.org/toiba/FullCalendarBundle)
 
 This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) library in your Symfony3.
 
 ## Requirements
-* FullCalendar.js v3.1.0
+* FullCalendar.js v3.9.0
 * Symfony v3.1+
 * PHP v5.5+
-* PHPSpec 
+* PHPSpec
 
 Installation
 ------------
-Installation process:
 
 1. [Download FullCalendarBundle using composer](#download-fullcalendarbundle)
 2. [Enable bundle](#enable-bundle)
-3. [Create your Event class](#create-event)
+3. [Add Routing](#routing)
 4. [Create your listener](#create-listener)
 5. [Add styles and scripts in your template](#styles-scripts)
-6. [Add Routing](#routing)
 
-### 1. Download FullCalendarBundle using composer <a id="download-fullcalendarbundle"></a>
+### 1. Download FullCalendarBundle using composer
 
-```bash
-$> composer require ancarebeca/full-calendar-bundle
+```sh
+$ composer require toiba/fullcalendar-bundle
 ```
 
-### 2. Enable bundle <a id="download-fullcalendarbundle"></a>
+### 2. Enable bundle
 
 ```php
 // app/AppKernel.php
@@ -35,54 +33,45 @@ $> composer require ancarebeca/full-calendar-bundle
 public function registerBundles()
 {
     return array(
-        // ...
-        new AncaRebeca\FullCalendarBundle\FullCalendarBundle(),
+        //...
+        new Toiba\FullCalendarBundle\FullCalendarBundle(),
     );
 }
 ```
-### 3. Create your Calendar Event class <a id="create-event"></a>
 
-```php
-// src/AppBundle/Entity/EventCustom.php
+### 3. Define routes by default
 
-<?php
+```yml
+# app/config/routing.yml
 
-namespace AppBundle\Entity;
-
-use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
-
-class CalendarEvent extends FullCalendarEvent
-{
-	// Your fields 
-}
+toiba_fullcalendar:
+    resource: "@FullCalendarBundle/Resources/config/routing.yml"
 ```
 
-### 4. Create your listener <a id="create-listener"></a>
+### 4. Create your listener
 You need to create your listener/subscriber class in order to load your events data in the calendar.
 
 ```yml
-// service.yml
+# app/config/services.yml
 services:
-   app_bundle.service.listener:
-        class: AppBundle\Listener\LoadDataListener
-	tags:
-   		- { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
-
+    AppBundle\EventListener\FullCalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
 ```
 
-This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your service.yml.
+This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yml.
 
 ```php
-// src/AppBundle/Listener/LoadDataListener.php
+// src/AppBundle/EventListener/FullCalendarListener.php
 
 <?php
 
-namespace AppBundle\Listener;
+namespace AppBundle\EventListener;
 
-use AncaRebeca\FullCalendarBundle\Model\FullCalendarEvent;
-use AppBundle\Entity\CalendarEvent as MyCustomEvent;
+use Toiba\FullCalendarBundle\Entity\Event;
+use Toiba\FullCalendarBundle\Event\CalendarEvent;
 
-class LoadDataListener
+class FullCalendarListener
 {
     /**
      * @param CalendarEvent $calendarEvent
@@ -91,19 +80,19 @@ class LoadDataListener
      */
     public function loadData(CalendarEvent $calendarEvent)
     {
-    	 $startDate = $calendarEvent->getStart();
-   		 $endDate = $calendarEvent->getEnd();
-		 $filters = $calendarEvent->getFilters();
-	
-    	 //You may want do a custom query to populate the events
-    	 
-    	 $calendarEvent->addEvent(new MyCustomEvent('Event Title 1', new \DateTime()));
-    	 $calendarEvent->addEvent(new MyCustomEvent('Event Title 2', new \DateTime()));
+         $startDate = $calendarEvent->getStart();
+         $endDate = $calendarEvent->getEnd();
+         $filters = $calendarEvent->getFilters();
+
+         //You may want do a custom query to populate the events
+
+         $calendarEvent->addEvent(new Event('Event Title 1', new \DateTime(), new \DateTime('+1 hour')));
+         $calendarEvent->addEvent(new Event('Event Title 2', new \DateTime('+1 day'), new \DateTime('+1 day +1 hour')));
     }
 }
 ```
 
-### 5. Add styles and scripts in your template <a id="styles-scripts"></a>
+### 5. Add styles and scripts in your template
 
 Add html template to display the calendar:
 
@@ -134,17 +123,35 @@ Add javascript:
 
 Install assets
 
-```bash
-$> php bin/console assets:install web
+```sh
+$ php bin/console assets:install web
 ```
 
-### 6. Define routes by default <a id="routing"></a>
+# Basic functionalities
 
-```yml
-# app/config/routing.yml
-
-ancarebeca_fullcalendar:
-    resource: "@FullCalendarBundle/Resources/config/routing.yml"
+```js
+$(function () {
+    $('#calendar-holder').fullCalendar({
+        header: {
+            left: 'prev, next',
+            center: 'title',
+            right: 'month, basicWeek, basicDay,'
+        },
+        lazyFetching: true,
+        timeFormat: {
+            agenda: 'h:mmt',
+            '': 'h:mmt'
+        },
+        eventSources: [
+            {
+                url: '/full-calendar/load',
+                type: 'POST',
+                data: {},
+                error: function () {}
+            }
+        ]
+    });
+});
 ```
 
 # Extending Basic functionalities
@@ -154,46 +161,48 @@ If you want to customize the FullCalendar javascript you can copy the fullcalend
 
 ```javascript
 $(function () {
-	$('#calendar-holder').fullCalendar({
-		header: {
-		    left: 'prev, next',
-		    center: 'title',
-		    right: 'month, agendaWeek, agendaDay'
-		},
-		timezone: ('Europe/London'),
-		businessHours: {
-		    start: '09:00',
-		    end: '17:30',
-		    dow: [1, 2, 3, 4, 5]
-		},
-		allDaySlot: false,
-		defaultView: 'agendaWeek',
-		lazyFetching: true,
-		firstDay: 1,
-		selectable: true,
-		timeFormat: {
-		    agenda: 'h:mmt',
-		    '': 'h:mmt'
-		},
-		columnFormat:{
-		    month: 'ddd',
-		    week: 'ddd D/M',
-		    day: 'dddd'
-		},
-		editable: true,
-		eventDurationEditable: true,
-		eventSources: [
-		{
-			url: /full-calendar/load,
-			type: 'POST',
-			data: {
-				filters: { param: foo }
-			}
-			error: function() {
-			   //alert()
-			}
-		}
-]
+    $('#calendar-holder').fullCalendar({
+        header: {
+            left: 'prev, next, today',
+            center: 'title',
+            right: 'month, agendaWeek, agendaDay'
+        },
+        timezone: ('Europe/Paris'),
+        businessHours: {
+            start: '09:00',
+            end: '18:00',
+            dow: [1, 2, 3, 4, 5]
+        },
+        allDaySlot: false,
+        defaultView: 'agendaWeek',
+        lazyFetching: true,
+        firstDay: 1,
+        selectable: true,
+        timeFormat: {
+            agenda: 'h:mmt',
+            '': 'h:mmt'
+        },
+        columnFormat:{
+            month: 'ddd',
+            week: 'ddd D/M',
+            day: 'dddd'
+        },
+        editable: true,
+        eventDurationEditable: true,
+        eventSources: [
+            {
+                url: /fc-load-events,
+                type: 'POST',
+                data: {
+                    filters: { foo: bar }
+                }
+                error: function() {
+                   // alert('There was an error while fetching FullCalendar!')
+                }
+            }
+        ]
+    });
+});
 ```
 
 Contribute and feedback
