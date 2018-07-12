@@ -10,6 +10,11 @@
             "name": "Rebeca Mora Anca",
             "email": "anca.rebeca@gmail.com",
             "role": "Developer"
+        },
+        {
+            "name": "Théo Attali",
+            "email": "theoattali@gmail.com",
+            "role": "Developer"
         }
     ],
     "require": {

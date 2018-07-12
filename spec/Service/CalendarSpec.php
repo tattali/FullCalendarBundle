@@ -3,7 +3,7 @@
 namespace spec\Toiba\FullCalendarBundle\Service;
 
 use Toiba\FullCalendarBundle\Event\CalendarEvent;
-use Toiba\FullCalendarBundle\Entity\FullCalendarEvent;
+use Toiba\FullCalendarBundle\Entity\Event;
 use Toiba\FullCalendarBundle\Service\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
@@ -25,7 +25,7 @@ class CalendarSpec extends ObjectBehavior
         SerializerInterface $serializer,
         EventDispatcherInterface $dispatcher,
         CalendarEvent $calendarEvent,
-        FullCalendarEvent $event
+        Event $event
     ) {
         $startDate = new \DateTime();
         $endDate = new \DateTime();
