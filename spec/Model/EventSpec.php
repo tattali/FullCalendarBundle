@@ -10,13 +10,15 @@ class EventSpec extends ObjectBehavior
 {
     private $title = 'Title';
     private $startDate;
+    private $endDate;
 
     function let()
     {
         $this->startDate = new \DateTime();
+        $this->endDate = new \DateTime();
 
         $this->beAnInstanceOf('spec\Toiba\FullCalendarBundle\Entity\EventTesteable');
-        $this->beConstructedWith($this->title, $this->startDate);
+        $this->beConstructedWith($this->title, $this->startDate, $this->endDate);
     }
 
     function it_is_initializable()
@@ -29,6 +31,7 @@ class EventSpec extends ObjectBehavior
     {
         $this->getTitle()->shouldReturn($this->title);
         $this->getStartDate()->shouldReturn($this->startDate);
+        $this->getEndDate()->shouldReturn($this->endDate);
     }
 
     function it_should_convert_its_values_in_to_array()

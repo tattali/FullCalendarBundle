@@ -2,12 +2,12 @@
 
 namespace spec\Toiba\FullCalendarBundle\Service;
 
-use Toiba\FullCalendarBundle\Event\CalendarEvent;
-use Toiba\FullCalendarBundle\Entity\Event;
-use Toiba\FullCalendarBundle\Service\SerializerInterface;
 use PhpSpec\ObjectBehavior;
 use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Toiba\FullCalendarBundle\Entity\Event;
+use Toiba\FullCalendarBundle\Event\CalendarEvent;
+use Toiba\FullCalendarBundle\Service\SerializerInterface;
 
 class CalendarSpec extends ObjectBehavior
 {

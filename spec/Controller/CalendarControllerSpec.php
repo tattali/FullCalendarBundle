@@ -60,6 +60,8 @@ JSON;
         $response->setContent($data);
         $response->setStatusCode(200);
 
+        // $response->setSharedMaxAge(600);
+
         $this->loadAction($request)->shouldBeLike($response);
     }
 }
