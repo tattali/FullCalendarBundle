@@ -131,7 +131,7 @@ class FullCalendarListener
 }
 ```
 
-### 5. Add styles and scripts in your template
+### 5. Add styles and scripts in your template
 
 Add html template to display the calendar:
 
