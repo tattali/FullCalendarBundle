@@ -1,4 +1,4 @@
-fullcalendar_load_event:
+fullcalendar_load_events:
     path:     /fc-load-events
     defaults:
         _controller: FullCalendarBundle:Calendar:load
