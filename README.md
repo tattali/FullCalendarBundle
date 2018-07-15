@@ -6,8 +6,8 @@ This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) li
 
 ## Requirements
 * FullCalendar.js v3.9.0
-* Symfony v3.1+
-* PHP v5.5+
+* Symfony 3.0/4.0
+* PHP v5.6+
 * PHPSpec
 
 Installation
@@ -80,14 +80,52 @@ class FullCalendarListener
      */
     public function loadData(CalendarEvent $calendarEvent)
     {
-         $startDate = $calendarEvent->getStart();
-         $endDate = $calendarEvent->getEnd();
-         $filters = $calendarEvent->getFilters();
+        $startDate = $calendarEvent->getStart();
+        $endDate = $calendarEvent->getEnd();
+        $filters = $calendarEvent->getFilters();
 
-         //You may want do a custom query to populate the events
+        //You may want do a custom query to populate the calendar
 
-         $calendarEvent->addEvent(new Event('Event Title 1', new \DateTime(), new \DateTime('+1 hour')));
-         $calendarEvent->addEvent(new Event('Event Title 2', new \DateTime('+1 day'), new \DateTime('+1 day +1 hour')));
+        $bookings = [
+            'booking_1' => array(
+                'beginAt' => new \DateTime('Monday this week 12:00:00'),
+                'endAt' => new \DateTime('Monday this week 13:00:00'),
+                'bgColor' => 'green',
+                'border' => true,
+            ),
+            'booking_2' => array(
+                'beginAt' => new \DateTime('Wednesday this week 12:00:00'),
+                'endAt' => new \DateTime('Wednesday this week 13:00:00'),
+                'bgColor' => 'orange',
+                'border' => true,
+            ),
+            'booking_3' => array(
+                'beginAt' => new \DateTime('Friday this week 12:00:00'),
+                'endAt' => new \DateTime('Friday this week 13:00:00'),
+                'bgColor' => 'blue',
+                'border' => false,
+            ),
+        ];
+
+        foreach($bookings as $title => $booking) {
+
+            // create an event with a start/end time
+            $event = new Event(
+                $title,
+                $booking['beginAt'],
+                $booking['endAt']
+            );
+
+            /*
+             * For more information see : Toiba\FullCalendarBundle\Entity\Event
+             * and : https://fullcalendar.io/docs/event-object
+             */
+            $event->setBackgroundColor($booking['bgColor']);
+            $event->setCustomField('borderColor', $booking['bgColor']);
+
+            // finally, add the booking to the CalendarEvent for displaying on the calendar
+            $calendarEvent->addEvent($event);
+        }
     }
 }
 ```
@@ -117,14 +155,7 @@ Add javascript:
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
-    <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.default-settings.js') }}"></script>
 {% endblock %}
-```
-
-Install assets
-
-```sh
-$ php bin/console assets:install web
 ```
 
 # Basic functionalities
@@ -144,7 +175,7 @@ $(function () {
         },
         eventSources: [
             {
-                url: '/full-calendar/load',
+                url: "{{ path('fullcalendar_load_events') }}",
                 type: 'POST',
                 data: {},
                 error: function () {}
@@ -159,7 +190,7 @@ $(function () {
 ## Extending the Calendar Javascript
 If you want to customize the FullCalendar javascript you can copy the fullcalendar.default-settings.js in YourBundle/Resources/public/js, and add your own logic:
 
-```javascript
+```js
 $(function () {
     $('#calendar-holder').fullCalendar({
         header: {
@@ -191,7 +222,7 @@ $(function () {
         eventDurationEditable: true,
         eventSources: [
             {
-                url: /fc-load-events,
+                url: "{{ path('fullcalendar_load_events') }}",
                 type: 'POST',
                 data: {
                     filters: { foo: bar }
