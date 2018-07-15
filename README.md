@@ -3,7 +3,7 @@
 [![Packagist](https://img.shields.io/packagist/v/toiba/fullcalendar-bundle.svg)](https://packagist.org/packages/toiba/fullcalendar-bundle)
 [![Build Status](https://travis-ci.org/toiba/FullCalendarBundle.svg)](https://travis-ci.org/toiba/FullCalendarBundle)
 
-This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) library in your Symfony3.
+This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) library in your Symfony3 or Symfony4 project.
 
 ## Requirements
 * FullCalendar.js v3.9.0
