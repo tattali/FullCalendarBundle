@@ -1,8 +1,8 @@
 {
     "name": "toiba/fullcalendar-bundle",
-    "description": "Symfony3 integration with the library FullCalendar.js",
+    "description": "Symfony 3/4 integration with the library FullCalendar.js",
     "type": "symfony-bundle",
-    "keywords": ["calendar", "fullcalendar", "jquery calendar", "symfony3 calendar", "symfony3 bundle"],
+    "keywords": ["symfony calendar", "fullcalendar", "jquery calendar"],
     "homepage": "https://github.com/toiba/FullCalendarBundle",
     "license": "MIT",
     "authors": [
@@ -19,11 +19,10 @@
     ],
     "require": {
         "php": ">=5.5.9",
-
-        "symfony/framework-bundle": "^2.8 || ^3.0 || ^4.0"
+        "symfony/framework-bundle": "^3.0 || ^4.0"
     },
     "require-dev": {
-        "phpspec/phpspec": "^5.0"
+        "phpspec/phpspec": "^2.5"
     },
     "autoload": {
         "psr-4": {
