@@ -1,10 +1,11 @@
 services:
-    full_calendar.service.serializer:
+    fullcalendar.service.serializer:
         class: Toiba\FullCalendarBundle\Service\Serializer
         public: false
 
-    full_calendar.service.calendar:
+    fullcalendar.service.calendar:
         class: Toiba\FullCalendarBundle\Service\Calendar
+        public: true
         arguments:
-            - "@full_calendar.service.serializer"
+            - "@fullcalendar.service.serializer"
             - "@event_dispatcher"

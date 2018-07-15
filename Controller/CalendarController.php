@@ -23,7 +23,7 @@ class CalendarController extends Controller
 
         try {
             $content = $this
-                ->get('full_calendar.service.calendar')
+                ->get('fullcalendar.service.calendar')
                 ->getData($startDate, $endDate, $filters);
             $status = empty($content) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK;
         } catch (\Exception $exception) {

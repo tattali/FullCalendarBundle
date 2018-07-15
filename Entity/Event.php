@@ -80,12 +80,17 @@ class Event
     /**
      * @param string $title
      * @param \DateTime $start
+     * @param \DateTime $end
      */
-    public function __construct($title, \DateTime $start, \DateTime $end)
+    public function __construct($title, \DateTime $start, \DateTime $end = null)
     {
         $this->title = $title;
         $this->startDate = $start;
-        $this->endDate = $end;
+
+        if (null !== $end) {
+            $this->endDate = $end;
+            $this->allDay = false;
+        }
     }
 
     /**

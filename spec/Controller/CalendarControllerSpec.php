@@ -35,7 +35,7 @@ class CalendarControllerSpec extends ObjectBehavior
         $request->get('end')->willReturn('2016-03-19 15:11:00');
         $request->get('filters', [])->willReturn([]);
 
-        $container->get('full_calendar.service.calendar')->willReturn($calendar);
+        $container->get('fullcalendar.service.calendar')->willReturn($calendar);
 
         $data = <<<JSON
 [
