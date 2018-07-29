@@ -42,25 +42,25 @@ public function registerBundles()
 
 ### 3. Define routes by default
 
-```yml
-# app/config/routing.yml
+```yaml
+# app/config/routing.yaml
 
 toiba_fullcalendar:
-    resource: "@FullCalendarBundle/Resources/config/routing.yml"
+    resource: "@FullCalendarBundle/Resources/config/routing.yaml"
 ```
 
 ### 4. Create your listener
 You need to create your listener/subscriber class in order to load your events data in the calendar.
 
-```yml
-# app/config/services.yml
+```yaml
+# app/config/services.yaml
 services:
     AppBundle\EventListener\FullCalendarListener:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadData }
 ```
 
-This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yml.
+This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yaml.
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
