@@ -78,53 +78,40 @@ class FullCalendarListener
      *
      * @return FullCalendarEvent[]
      */
-    public function loadData(CalendarEvent $calendarEvent)
+    public function loadData(CalendarEvent $calendar)
     {
-        $startDate = $calendarEvent->getStart();
-        $endDate = $calendarEvent->getEnd();
-        $filters = $calendarEvent->getFilters();
+        $startDate = $calendar->getStart();
+        $endDate = $calendar->getEnd();
+        $filters = $calendar->getFilters(); // array of ajax sended data ex: 'foo' => 'bar'
 
-        //You may want do a custom query to populate the calendar
+        // You may want do a custom query to populate the calendar
+        // b.beginAt is the start date in the booking entity
 
-        $bookings = [
-            'booking_1' => array(
-                'beginAt' => new \DateTime('Monday this week 12:00:00'),
-                'endAt' => new \DateTime('Monday this week 13:00:00'),
-                'bgColor' => 'green',
-                'border' => true,
-            ),
-            'booking_2' => array(
-                'beginAt' => new \DateTime('Wednesday this week 12:00:00'),
-                'endAt' => new \DateTime('Wednesday this week 13:00:00'),
-                'bgColor' => 'orange',
-                'border' => true,
-            ),
-            'booking_3' => array(
-                'beginAt' => new \DateTime('Friday this week 12:00:00'),
-                'endAt' => new \DateTime('Friday this week 13:00:00'),
-                'bgColor' => 'blue',
-                'border' => false,
-            ),
-        ];
+        $bookings = $this->em->getRepository(Booking::class)
+            ->createQueryBuilder('b')
+            ->andWhere('b.beginAt BETWEEN :startDate and :endDate')
+            ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+            ->getQuery()->getResult();
 
-        foreach($bookings as $title => $booking) {
+        foreach($bookings as $booking) {
 
-            // create an event with a start/end time
-            $event = new Event(
-                $title,
-                $booking['beginAt'],
-                $booking['endAt']
+            // create an event
+            $bookingEvent = new Event(
+                $booking->getTitle(),
+                $booking->getBeginAt(),
+                $booking->getEndAt() // If end date is null or not defined, it create an all day event
             );
 
             /*
              * For more information see : Toiba\FullCalendarBundle\Entity\Event
              * and : https://fullcalendar.io/docs/event-object
              */
-            $event->setBackgroundColor($booking['bgColor']);
-            $event->setCustomField('borderColor', $booking['bgColor']);
+            // $bookingEvent->setBackgroundColor($booking['bgColor']);
+            // $bookingEvent->setCustomField('borderColor', $booking['bgColor']);
 
             // finally, add the booking to the CalendarEvent for displaying on the calendar
-            $calendarEvent->addEvent($event);
+            $calendar->addEvent($bookingEvent);
         }
     }
 }
@@ -178,7 +165,9 @@ $(function () {
                 url: "{{ path('fullcalendar_load_events') }}",
                 type: 'POST',
                 data: {},
-                error: function () {}
+                error: function() {
+                   alert('There was an error while fetching FullCalendar!')
+                }
             }
         ]
     });
@@ -225,10 +214,10 @@ $(function () {
                 url: "{{ path('fullcalendar_load_events') }}",
                 type: 'POST',
                 data: {
-                    filters: { foo: bar }
+                    filters: { 'foo': 'bar' }
                 }
                 error: function() {
-                   // alert('There was an error while fetching FullCalendar!')
+                   alert('There was an error while fetching FullCalendar!')
                 }
             }
         ]
