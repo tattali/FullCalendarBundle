@@ -1,4 +1,4 @@
-## FullCalendarBundle
+# FullCalendarBundle
 
 [![Packagist](https://img.shields.io/packagist/v/toiba/fullcalendar-bundle.svg)](https://packagist.org/packages/toiba/fullcalendar-bundle)
 [![Build Status](https://travis-ci.org/toiba/FullCalendarBundle.svg)](https://travis-ci.org/toiba/FullCalendarBundle)
@@ -11,14 +11,13 @@ This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) li
 * PHP v5.6+
 * PHPSpec
 
-Installation
-------------
+## Installation
 
-1. [Download FullCalendarBundle using composer](#download-fullcalendarbundle)
-2. [Enable bundle](#enable-bundle)
-3. [Add Routing](#routing)
-4. [Create your listener](#create-listener)
-5. [Add styles and scripts in your template](#styles-scripts)
+1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
+2. [Enable bundle](#2-enable-bundle)
+3. [Add Routing](#3-define-routes)
+4. [Create your listener](#4-create-your-listener)
+5. [Add styles and scripts in your template](#5-add-styles-and-scripts-in-your-template)
 
 ### 1. Download FullCalendarBundle using composer
 
@@ -40,7 +39,7 @@ public function registerBundles()
 }
 ```
 
-### 3. Define routes by default
+### 3. Define routes
 
 ```yaml
 # app/config/routing.yaml
