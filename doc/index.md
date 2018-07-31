@@ -1,8 +1,8 @@
 # Documentation
 
-## Installation
-
 Symfony flex users skip step 2 and 3
+
+## Installation
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
 2. [Enable bundle](#2-enable-bundle)
