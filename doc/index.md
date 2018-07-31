@@ -76,6 +76,7 @@ class FullCalendarListener
         $filters = $calendar->getFilters();
 
         // You may want do a custom query to populate the calendar
+        
         $calendar->addEvent(new Event(
             'Event 1',
             new \DateTime('Tuesday this week'),
