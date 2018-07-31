@@ -6,7 +6,9 @@ FullCalendarBundle
 
 This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) library in your Symfony project.
 
-![fullcalendar](https://user-images.githubusercontent.com/10502887/43464490-8499d962-94db-11e8-8455-f688c2e7ad1d.png)
+<p align="center">
+  <img src="https://user-images.githubusercontent.com/10502887/43464490-8499d962-94db-11e8-8455-f688c2e7ad1d.png" alt="FullCalendar image">
+</div>
 
 * FullCalendar.js v3.9.0
 * Symfony 3.0/4.0
