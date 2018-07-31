@@ -18,7 +18,7 @@ Documentation
 
 The source of the documentation is stored in the doc/ folder in this bundle :
 
-[Read the Documentation for master](doc/index.md)
+[Read the Documentation](doc/index.md)
 
 All the installation instructions are located in the documentation.
 
