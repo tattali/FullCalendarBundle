@@ -42,7 +42,7 @@ toiba_fullcalendar:
 ### 4. Create your listener
 You need to create your listener class in order to load your events data in the calendar.
 
-See the [doctrine listener example](doc/doctrine-listener.md)
+See the [doctrine listener example](doctrine-listener.md)
 
 ```yaml
 # app/config/services.yml or config/services.yaml
