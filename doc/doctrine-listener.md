@@ -5,7 +5,6 @@ We need to inject doctrine entity manager to the event listener
 # app/config/services.yml or config/services.yaml
 services:
     AppBundle\EventListener\FullCalendarListener:
-        arguments: [ "@doctrine.orm.entity_manager" ]
         tags:
             - { name: kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
@@ -20,7 +19,7 @@ This listener is called when the event 'fullcalendar.set_data' is launched.
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Booking;
-use Doctrine\ORM\EntityManager;
+use Doctrine\ORM\EntityManagerInterface;
 use Toiba\FullCalendarBundle\Entity\Event;
 use Toiba\FullCalendarBundle\Event\CalendarEvent;
 
@@ -31,7 +30,7 @@ class FullCalendarListener
      */
     private $em;
 
-    public function __construct(EntityManager $em)
+    public function __construct(EntityManagerInterface $em)
     {
         $this->em = $em;
     }
