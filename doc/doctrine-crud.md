@@ -1,6 +1,6 @@
 # Doctrine Basic CRUD example with FullCalendarBundle
 
-Create an entity with at least a `startDate` and an `endDate` you can also add a `title`
+Create an entity with at least a `startDate` and an `endDate`. You also can add a `title`
 
 For this example we call it `Booking` entity
 ```php
@@ -76,8 +76,7 @@ class Booking
 
 ```
 
-Then create or generate a CRUD for your entity by running:
-
+Then, create or generate a CRUD for your entity by running:
 ```sh
 # Symfony 3
 php bin/console doctrine:generate:crud 
@@ -86,8 +85,7 @@ php bin/console doctrine:generate:crud
 php bin/console make:crud
 ```
 
-Create a action and a template in the controller to display the calendar
-
+Create an action and a template in the controller to display the calendar
 ```php
 <?php
 
@@ -113,7 +111,7 @@ class BookingController extends Controller
     // ...
 }
 ```
-the calendar template with a link to the new form page:
+the calendar template with a link to the entity creation form:
 ```twig
 {% extends 'base.html.twig' %}
 
@@ -277,13 +275,13 @@ class FullCalendarListener
 }
 ```
 
+Don't forget to [register the listener](index.md#4-create-your-listener) as a service like in the installation process
+
 Now in the calendar when we click on an event it show the `showAction()` that contains an edit and delete link
 
 And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
-Don't forget to [register the listener](index.md#4-create-your-listener) as a service like in the installation process
-
-If you have create a custom entity don't forget to modify listener: 
+If you have create a custom entity don't forget to modify the listener: 
  - Replace all `Booking` or `booking` by your custom entity name
  - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
- - Also near the `new Event(` in the `foreach` modify the getters to fit toyour needs and entity
+ - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
