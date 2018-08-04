@@ -1,6 +1,6 @@
 # Documentation
 
-**Symfony flex users skip step 2 and 3** because they are done in the recipe
+**Symfony flex users skip step 2 and step 3** because they are done in the recipe
 
 ## Installation
 
