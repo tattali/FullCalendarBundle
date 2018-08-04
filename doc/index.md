@@ -42,8 +42,6 @@ toiba_fullcalendar:
 ### 4. Create your listener
 You need to create your listener class in order to load your events data in the calendar.
 
-See the [doctrine listener example](doctrine-listener.md)
-
 ```yaml
 # app/config/services.yml or config/services.yaml
 services:
@@ -53,6 +51,8 @@ services:
 ```
 
 This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yaml.
+
+See the [doctrine listener example](doctrine-listener.md)
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
