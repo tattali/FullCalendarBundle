@@ -18,7 +18,7 @@ This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) li
 Documentation
 -------------
 
-The source of the documentation is stored in the doc/ folder in this bundle :
+The source of the documentation is stored in the `doc/` folder in this bundle :
 
 [Read the Documentation](doc/index.md)
 
@@ -33,4 +33,4 @@ Any feedback and contribution will be very appreciated.
 License
 -------
 
-This bundle is under the MIT license. See the complete license in the bundle
+This bundle is under the MIT license. See the complete [license](LICENSE) in the bundle
