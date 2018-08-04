@@ -68,3 +68,6 @@ class FullCalendarListener
 ```
 
 Finish installation by adding [style and js](index.md#5-add-styles-and-scripts-in-your-template)
+
+## Next steps
+[Link the calendar to a CRUD](doctrine-crud.md)
