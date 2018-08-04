@@ -2,7 +2,7 @@
 
 Create an entity with at least a `startDate` and an `endDate` you can also add a `title`
 
-For this example we call it Booking
+For this example we call it `Booking` entity
 ```php
 <?php
 
@@ -113,6 +113,7 @@ class BookingController extends Controller
     // ...
 }
 ```
+the calendar template with a link to the new form page:
 ```twig
 {% extends 'base.html.twig' %}
 
@@ -168,11 +169,10 @@ class BookingController extends Controller
 
 We now have to link the CRUD to the calendar
 
-To do this modify listener to access to the router interface
+To do this modify the listener to access to the router interface
 
 ```php
 <?php
-
 namespace AppBundle\EventListener;
 
 // ...
@@ -203,7 +203,7 @@ $bookingEvent->setUrl(
 );
 ```
 
-Full listener with Booking entity
+Full listener for `Booking` entity
 ```php
 <?php
 
@@ -277,7 +277,7 @@ class FullCalendarListener
 }
 ```
 
-Now when we click on an event it show the `showAction()` that contains an edit and delete link
+Now in the calendar when we click on an event it show the `showAction()` that contains an edit and delete link
 
 And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
