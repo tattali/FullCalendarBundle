@@ -1,15 +1,6 @@
 # Doctrine listener
+
 We need to inject doctrine entity manager to the event listener
-
-```yaml
-# app/config/services.yml or config/services.yaml
-services:
-    AppBundle\EventListener\FullCalendarListener:
-        tags:
-            - { name: kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
-```
-
-This listener is called when the event 'fullcalendar.set_data' is launched.
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
@@ -44,7 +35,7 @@ class FullCalendarListener
         $endDate = $calendar->getEnd();
         $filters = $calendar->getFilters();
 
-        // You may want do a custom query to populate the calendar
+        // Modify the query to fit to your entity and needs
         // b.beginAt is the start date in the booking entity
         $bookings = $this->em->getRepository(Booking::class)
             ->createQueryBuilder('b')
@@ -55,7 +46,7 @@ class FullCalendarListener
 
         foreach($bookings as $booking) {
 
-            // create an event with the booking data
+            // create the events with your own entity (here booking entity)
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
@@ -66,8 +57,8 @@ class FullCalendarListener
              * For more information see : Toiba\FullCalendarBundle\Entity\Event
              * and : https://fullcalendar.io/docs/event-object
              */
-            // $bookingEvent->setBackgroundColor($booking['bgColor']);
-            // $bookingEvent->setCustomField('borderColor', $booking['bgColor']);
+            // $bookingEvent->setBackgroundColor($booking->getColor());
+            // $bookingEvent->setCustomField('borderColor', $booking->getColor());
 
             // finally, add the booking to the CalendarEvent for displaying on the calendar
             $calendar->addEvent($bookingEvent);
