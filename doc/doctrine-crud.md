@@ -1,5 +1,7 @@
 # Doctrine Basic CRUD example with FullCalendarBundle
 
+This example allow you to add, edit & show events with `FullCalendarBundle`
+
 Create an entity with at least a `startDate` and an `endDate`. You also can add a `title`
 
 For this example we call it `Booking` entity
@@ -275,13 +277,13 @@ class FullCalendarListener
 }
 ```
 
-Don't forget to [register the listener](index.md#4-create-your-listener) as a service like in the installation process
+* Don't forget to [register the listener](index.md#4-create-your-listener) as a service like in the installation process
 
-Now in the calendar when we click on an event it show the `showAction()` that contains an edit and delete link
+* Now in the calendar when we click on an event it show the `showAction()` that contains an edit and delete link
 
-And when you create a new `Booking` (or your custom entity name) it appear on the calendar
+* And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
-If you have create a custom entity don't forget to modify the listener: 
- - Replace all `Booking` or `booking` by your custom entity name
- - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
- - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
+* If you have create a custom entity don't forget to modify the listener: 
+    - Replace all `Booking` or `booking` by your custom entity name
+    - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
+    - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
