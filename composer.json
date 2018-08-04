@@ -2,7 +2,7 @@
     "name": "toiba/fullcalendar-bundle",
     "description": "Symfony integration with the library FullCalendar.js",
     "type": "symfony-bundle",
-    "keywords": ["symfony calendar", "fullcalendar", "jquery calendar"],
+    "keywords": ["calendar", "fullcalendar", "jquery calendar", "symfony calendar"],
     "homepage": "https://github.com/toiba/FullCalendarBundle",
     "license": "MIT",
     "authors": [
