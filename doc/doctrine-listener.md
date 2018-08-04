@@ -1,6 +1,6 @@
 # Doctrine listener
 
-We need to inject doctrine entity manager to the event listener
+We need to inject doctrine entityManager to the event listener
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
