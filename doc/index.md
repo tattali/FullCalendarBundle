@@ -1,6 +1,6 @@
 # Documentation
 
-Symfony flex users skip step 2 and 3
+**Symfony flex users skip step 2 and 3** because they are done in the recipe
 
 ## Installation
 
@@ -45,14 +45,16 @@ You need to create your listener class in order to load your events data in the 
 ```yaml
 # app/config/services.yml or config/services.yaml
 services:
+    # ...
+
     AppBundle\EventListener\FullCalendarListener:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
 
-This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yaml.
-
 See the [doctrine listener example](doctrine-listener.md)
+
+This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yml.
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
@@ -119,6 +121,8 @@ Add javascript:
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
 {% endblock %}
 ```
+
+Click [here](https://fullcalendar.io/download) to see other css and js download methods
 
 ## Basic functionalities
 
