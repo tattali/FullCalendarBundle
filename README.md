@@ -11,7 +11,7 @@ This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) li
 </div>
 
 * FullCalendar.js v3.9.0
-* Symfony 3.0/4.0
+* Symfony 3.4+ and Symfony 4.1+
 * PHP v5.6+
 * PHPSpec
 
