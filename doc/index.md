@@ -36,7 +36,7 @@ public function registerBundles()
 # app/config/routing.yml
 
 toiba_fullcalendar:
-    resource: "@FullCalendarBundle/Resources/config/routing.yml"
+    resource: "@FullCalendarBundle/Resources/config/routing.yaml"
 ```
 
 ### 4. Create your listener
