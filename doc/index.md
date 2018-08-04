@@ -52,9 +52,9 @@ services:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
 
-See the [doctrine listener example](doctrine-listener.md)
-
 This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yml.
+
+See the [doctrine listener example](doctrine-listener.md)
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
