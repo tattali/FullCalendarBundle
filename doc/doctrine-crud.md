@@ -281,4 +281,9 @@ Now in the calendar when we click on an event it show the `showAction()` that co
 
 And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
-Don't forget to [register the listener](index.md#4-create-your-listener) like in the installation process
+Don't forget to [register the listener](index.md#4-create-your-listener) as a service like in the installation process
+
+If you have create a custom entity don't forget to modify listener: 
+ - Replace all `Booking` or `booking` by your custom entity name
+ - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
+ - Also near the `new Event(` in the `foreach` modify the getters to fit toyour needs and entity
