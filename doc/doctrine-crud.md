@@ -2,7 +2,7 @@
 
 This example allow you to add, edit & show events with `FullCalendarBundle`
 
-Create an entity with at least a `startDate` and an `endDate`. You also can add a `title`
+Create an entity with at least a `startDate` and a `title`. You also can add an `endDate`
 
 For this example we call it `Booking` entity
 ```php
@@ -113,7 +113,7 @@ class BookingController extends Controller
     // ...
 }
 ```
-the calendar template with a link to the entity creation form:
+the calendar template with a link to the `booking_new` form:
 ```twig
 {% extends 'base.html.twig' %}
 
