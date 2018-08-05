@@ -58,7 +58,6 @@ See the [doctrine listener example](doctrine-listener.md)
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
-
 <?php
 
 namespace AppBundle\EventListener;
