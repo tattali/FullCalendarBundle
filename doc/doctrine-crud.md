@@ -233,14 +233,17 @@ class FullCalendarListener
         $this->router = $router;
     }
 
+    /**
+     * @param CalendarEvent $calendar
+     */
     public function loadEvents(CalendarEvent $calendar)
     {
         $startDate = $calendar->getStart();
         $endDate = $calendar->getEnd();
         $filters = $calendar->getFilters();
 
-        // You may want do a custom query to populate the calendar
-        // b.beginAt is the start date in the booking entity
+        // Modify the query to fit to your entity and needs
+        // Change b.beginAt by your start date in you custom entity
         $bookings = $this->em->getRepository(Booking::class)
             ->createQueryBuilder('b')
             ->andWhere('b.beginAt BETWEEN :startDate and :endDate')
@@ -250,7 +253,7 @@ class FullCalendarListener
 
         foreach($bookings as $booking) {
 
-            // create an event with the booking data
+            // create the events with your own entity (here booking entity)
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
@@ -261,8 +264,8 @@ class FullCalendarListener
              * For more information see : Toiba\FullCalendarBundle\Entity\Event
              * and : https://fullcalendar.io/docs/event-object
              */
-            // $bookingEvent->setBackgroundColor($booking['bgColor']);
-            // $bookingEvent->setCustomField('borderColor', $booking['bgColor']);
+            // $bookingEvent->setBackgroundColor($booking->getColor());
+            // $bookingEvent->setCustomField('borderColor', $booking->getColor());
 
             $bookingEvent->setUrl(
                 $this->router->generate('booking_show', array(
