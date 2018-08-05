@@ -245,7 +245,7 @@ class FullCalendarListener
         $filters = $calendar->getFilters();
 
         // Modify the query to fit to your entity and needs
-        // Change b.beginAt by your start date in you custom entity
+        // Change b.beginAt by your start date in your custom entity
         $bookings = $this->em->getRepository(Booking::class)
             ->createQueryBuilder('b')
             ->andWhere('b.beginAt BETWEEN :startDate and :endDate')
@@ -255,7 +255,7 @@ class FullCalendarListener
 
         foreach($bookings as $booking) {
 
-            // create the events with your own entity (here booking entity)
+            // this create the events with your own entity (here booking entity)
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
