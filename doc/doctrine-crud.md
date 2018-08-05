@@ -153,7 +153,7 @@ the calendar template with a link to the entity creation form:
                         url: "{{ path('fullcalendar_load_events') }}",
                         type: 'POST',
                         data:  {
-                            filters: { 'foo': 'bar' }
+                            filters: {}
                         },
                         error: function () {
                             alert('There was an error while fetching FullCalendar!');
@@ -192,6 +192,8 @@ class FullCalendarListener
         $this->em = $em;
         $this->router = $router;
     }
+
+    // ...
 ```
 
 Then use the `setUrl()` function on your `Event` object variable
