@@ -20,7 +20,6 @@ $ composer require toiba/fullcalendar-bundle
 
 ```php
 // app/AppKernel.php
-
 public function registerBundles()
 {
     return array(
