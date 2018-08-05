@@ -1,6 +1,8 @@
 # Doctrine listener
 
-We need to inject doctrine `EntityManagerInterface` to the event listener
+After [registering the listener as a service](index.md#4-create-your-listener)
+
+You need to inject doctrine `EntityManagerInterface` to the event listener
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
