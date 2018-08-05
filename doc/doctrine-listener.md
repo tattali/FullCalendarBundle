@@ -47,7 +47,7 @@ class FullCalendarListener
 
         foreach($bookings as $booking) {
 
-            // create the events with your own entity (here booking entity)
+            // this create the events with your own entity (here booking entity)
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
