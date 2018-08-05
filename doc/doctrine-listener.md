@@ -4,7 +4,6 @@ We need to inject doctrine `EntityManager` to the event listener
 
 ```php
 // src/AppBundle/EventListener/FullCalendarListener.php
-
 <?php
 
 namespace AppBundle\EventListener;
