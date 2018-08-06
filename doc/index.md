@@ -191,3 +191,9 @@ $(function () {
     });
 });
 ```
+
+## Troubleshoot AJAX requests
+
+* To debug AJAX requests, show the Network monitor, then reload the page. Finally click on `fc-load-events` and select the `Response` or `Preview` tab
+    - Firefox: `Ctrl + Shift + E` ( `Command + Option + E` on Mac )
+    - Chrome: `Ctrl + Shift + I` ( `Command + Option + I` on Mac )
