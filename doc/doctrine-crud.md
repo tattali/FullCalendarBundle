@@ -289,6 +289,8 @@ class FullCalendarListener
     - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
     - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
 
-* To debug and troubleshot AJAX requests, show the Network monitor, then reload the page. Finally click on fc-load-events and select the Response or Preview tab
-    - Firefox: <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>E</kbd> ( <kbd>⌘</kbd><kbd>⌥</kbd><kbd>E</kbd> on Mac)
-    - Chrome: <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>I</kbd> ( <kbd>⌘</kbd><kbd>⌥</kbd><kbd>I</kbd> on Mac)
+<br>
+
+* To debug AJAX requests, show the Network monitor, then reload the page. Finally click on `fc-load-events` and select the `Response` or `Preview` tab
+    - Firefox: `Ctrl + Shift + E` ( `Command + Option + E` on Mac )
+    - Chrome: `Ctrl + Shift + I` ( `Command + Option + I` on Mac )
