@@ -18,7 +18,7 @@ use Toiba\FullCalendarBundle\Event\CalendarEvent;
 class FullCalendarListener
 {
     /**
-     * @var EntityManager
+     * @var EntityManagerInterface
      */
     private $em;
 
