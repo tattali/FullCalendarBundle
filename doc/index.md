@@ -98,7 +98,7 @@ Add html template to display the calendar:
 
 ```twig
 {% block body %}
-    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+    {% include '@FullCalendarCalendar/calendar.html.twig' %}
 {% endblock %}
 ```
 
@@ -117,6 +117,8 @@ Add javascript:
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/fullcalendar.min.js') }}"></script>
+    
+    {# <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/locale-all.js') }}"></script> #}
 {% endblock %}
 ```
 
