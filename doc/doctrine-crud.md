@@ -142,12 +142,8 @@ the calendar template with a link to the `booking_new` form:
                     center: 'title',
                     right: 'month, agendaWeek, agendaDay'
                 },
-                allDaySlot: false,
                 lazyFetching: true,
                 navLinks: true,
-                selectable: true,
-                editable: true,
-                eventDurationEditable: true,
                 eventSources: [
                     {
                         url: "{{ path('fullcalendar_load_events') }}",
@@ -288,7 +284,11 @@ class FullCalendarListener
 
 * And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
-* If you have create a custom entity don't forget to modify the listener: 
+* If you have created a custom entity don't forget to modify the listener: 
     - Replace all `Booking` or `booking` by your custom entity name
     - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
     - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
+
+* To debug and troubleshot AJAX requests, show the Network monitor, then reload the page. Finally click on fc-load-events and select the Response or Preview tab
+    - Firefox: <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>E</kbd> ( <kbd>⌘</kbd><kbd>⌥</kbd><kbd>E</kbd> on Mac)
+    - Chrome: <kbd>Ctrl</kbd><kbd>Shift</kbd><kbd>I</kbd> ( <kbd>⌘</kbd><kbd>⌥</kbd><kbd>I</kbd> on Mac)
