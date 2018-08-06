@@ -133,11 +133,14 @@ $(function () {
             right: 'month, basicWeek, basicDay'
         },
         lazyFetching: true,
+        navLinks: true,
         eventSources: [
             {
                 url: "{{ path('fullcalendar_load_events') }}",
                 type: 'POST',
-                data: {},
+                data: {
+                    filters: {}
+                },
                 error: function () {
                     alert('There was an error while fetching FullCalendar!');
                 }
@@ -163,7 +166,6 @@ $(function () {
             end: '18:00',
             dow: [1, 2, 3, 4, 5]
         },
-        allDaySlot: false,
         defaultView: 'agendaWeek',
         lazyFetching: true,
         navLinks: true,
