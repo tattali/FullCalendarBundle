@@ -5,12 +5,12 @@ After [registering the listener as a service](index.md#4-create-your-listener)
 You need to inject doctrine `EntityManagerInterface` to the event listener
 
 ```php
-// src/AppBundle/EventListener/FullCalendarListener.php
+// src/EventListener/FullCalendarListener.php
 <?php
 
-namespace AppBundle\EventListener;
+namespace App\EventListener;
 
-use AppBundle\Entity\Booking;
+use App\Entity\Booking;
 use Doctrine\ORM\EntityManagerInterface;
 use Toiba\FullCalendarBundle\Entity\Event;
 use Toiba\FullCalendarBundle\Event\CalendarEvent;
@@ -27,9 +27,6 @@ class FullCalendarListener
         $this->em = $em;
     }
 
-    /**
-     * @param CalendarEvent $calendar
-     */
     public function loadEvents(CalendarEvent $calendar)
     {
         $startDate = $calendar->getStart();
@@ -47,17 +44,20 @@ class FullCalendarListener
 
         foreach($bookings as $booking) {
 
-            // this create the events with your own entity (here booking entity)
+            // this create the events with your own entity (here booking entity) to po
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
-                $booking->getEndAt() // If end date is null or not defined, it create an all day event
+                $booking->getEndAt() // If the end date is null or not defined, it creates a all day event
             );
 
             /*
+             * Optional calendar event settings
+             *
              * For more information see : Toiba\FullCalendarBundle\Entity\Event
              * and : https://fullcalendar.io/docs/event-object
              */
+            // $bookingEvent->setUrl('http://www.google.com');
             // $bookingEvent->setBackgroundColor($booking->getColor());
             // $bookingEvent->setCustomField('borderColor', $booking->getColor());
 
@@ -68,7 +68,7 @@ class FullCalendarListener
 }
 ```
 
-Finish installation by adding [style and js](index.md#5-add-styles-and-scripts-in-your-template)
+Finish installation by adding [css and js](index.md#5-add-styles-and-scripts-in-your-template)
 
 ## Next steps
 [Link the calendar to a CRUD to allow add, edit & show events](doctrine-crud.md)
