@@ -119,7 +119,8 @@ Add styles and js. Click [here](https://fullcalendar.io/download) to see other c
 ## Basic functionalities
 
 You may want to customize the FullCalendar javascript to meet your applications needs. To do this, you can copy the following settings and modify them according to your needs. For example, you can pass custom filters to your event listeners by adding extra parameters to the filters array
-```twig
+
+```js
 $(function () {
     $('#calendar-holder').fullCalendar({
         header: {
