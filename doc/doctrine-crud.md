@@ -83,11 +83,11 @@ Then, create or generate a CRUD for your entity by running:
 # Symfony 3
 php bin/console doctrine:generate:crud 
 
-# Symfony flex (composer req maker)
+# Symfony flex (Need the maker: composer req maker)
 php bin/console make:crud
 ```
 
-Create an action and a template in the controller to display the calendar
+Create an action and a template to display the calendar
 ```php
 <?php
 
@@ -192,7 +192,7 @@ class FullCalendarListener
     // ...
 ```
 
-Then use the `setUrl()` function on your `Event` object variable
+Then use `setUrl()` on your `Event` object variable to link event to the show action
 ```php
 $bookingEvent->setUrl(
     $this->router->generate('booking_show', array(
@@ -201,7 +201,7 @@ $bookingEvent->setUrl(
 );
 ```
 
-Full listener for `Booking` entity
+Full listener with `Booking` entity. Modify it to fit your needs.
 ```php
 <?php
 
@@ -231,9 +231,6 @@ class FullCalendarListener
         $this->router = $router;
     }
 
-    /**
-     * @param CalendarEvent $calendar
-     */
     public function loadEvents(CalendarEvent $calendar)
     {
         $startDate = $calendar->getStart();
@@ -251,17 +248,20 @@ class FullCalendarListener
 
         foreach($bookings as $booking) {
 
-            // this create the events with your own entity (here booking entity)
+            // this create the events with your own entity (here booking entity) to populate calendar
             $bookingEvent = new Event(
                 $booking->getTitle(),
                 $booking->getBeginAt(),
-                $booking->getEndAt() // If end date is null or not defined, it create an all day event
+                $booking->getEndAt() // If the end date is null or not defined, it creates a all day event
             );
 
             /*
+             * Optional calendar event settings
+             *
              * For more information see : Toiba\FullCalendarBundle\Entity\Event
              * and : https://fullcalendar.io/docs/event-object
              */
+            // $bookingEvent->setUrl('http://www.google.com');
             // $bookingEvent->setBackgroundColor($booking->getColor());
             // $bookingEvent->setCustomField('borderColor', $booking->getColor());
 
