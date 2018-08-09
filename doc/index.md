@@ -1,6 +1,6 @@
 # Documentation
 
-**Symfony flex users skip step 2 and step 3** because they are done in the recipe
+**Symfony flex users** skip steps 2 and 3 because they are done in the recipe
 
 ## Installation
 
@@ -39,8 +39,9 @@ toiba_fullcalendar:
 ```
 
 ### 4. Create your listener
-You need to create your listener class in order to load your events data in the calendar.
+You need to create a listener class to load your event data into the calendar.
 
+This listener must be called when the event 'fullcalendar.set_data' is launched. For this reason, you will need to add this in your services.yml.
 ```yaml
 # app/config/services.yml or config/services.yaml
 services:
@@ -51,7 +52,7 @@ services:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
 
-This listener is called when the event 'fullcalendar.set_data' is launched, for this reason you will need add this in your services.yml.
+Then, create the listener class to add events to the calendar
 
 See the [doctrine listener example](doctrine-listener.md)
 
@@ -66,16 +67,13 @@ use Toiba\FullCalendarBundle\Event\CalendarEvent;
 
 class FullCalendarListener
 {
-    /**
-     * @param CalendarEvent $calendar
-     */
     public function loadEvents(CalendarEvent $calendar)
     {
         $startDate = $calendar->getStart();
         $endDate = $calendar->getEnd();
         $filters = $calendar->getFilters();
 
-        // You may want do a custom query to populate the calendar
+        // You may want to make a custom query to populate the calendar
         
         $calendar->addEvent(new Event(
             'Event 1',
@@ -83,7 +81,7 @@ class FullCalendarListener
             new \DateTime('Wednesdays this week')
         ));
 
-        // If end date is null or not defined, it create an all day event
+        // If the end date is null or not defined, it creates a all day event
         $calendar->addEvent(new Event(
             'Event All day',
             new \DateTime('Friday this week')
@@ -94,7 +92,7 @@ class FullCalendarListener
 
 ### 5. Add styles and scripts in your template
 
-Add html template to display the calendar:
+Include the html template were you want to display the calendar:
 
 ```twig
 {% block body %}
@@ -102,17 +100,13 @@ Add html template to display the calendar:
 {% endblock %}
 ```
 
-Add styles:
+Add styles and js. Click [here](https://fullcalendar.io/download) to see other css and js download methods
 
 ```twig
 {% block stylesheets %}
     <link rel="stylesheet" href="{{ asset('bundles/fullcalendar/css/fullcalendar/fullcalendar.min.css') }}" />
 {% endblock %}
-```
 
-Add javascript:
-
-```twig
 {% block javascripts %}
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/jquery.min.js') }}"></script>
     <script type="text/javascript" src="{{ asset('bundles/fullcalendar/js/fullcalendar/lib/moment.min.js') }}"></script>
@@ -122,11 +116,10 @@ Add javascript:
 {% endblock %}
 ```
 
-Click [here](https://fullcalendar.io/download) to see other css and js download methods
-
 ## Basic functionalities
 
-```js
+You may want to customize the FullCalendar javascript to meet your applications needs. To do this, you can copy the following settings and modify them according to your needs. For example, you can pass custom filters to your event listeners by adding extra parameters to the filters array
+```twig
 $(function () {
     $('#calendar-holder').fullCalendar({
         header: {
@@ -138,7 +131,7 @@ $(function () {
         navLinks: true,
         eventSources: [
             {
-                url: "{{ path('fullcalendar_load_events') }}",
+                url: '/fc-load-events',
                 type: 'POST',
                 data: {
                     filters: {}
@@ -176,15 +169,13 @@ $(function () {
         eventDurationEditable: true,
         eventSources: [
             {
-                url: "{{ path('fullcalendar_load_events') }}",
+                url: '/fc-load-events',
                 type: 'POST',
                 data: {
-                    filters: {
-                        'foo': 'bar'
-                    }
+                    filters: {}
                 },
                 error: function () {
-                    alert('There was an error while fetching FullCalendar!');
+                    // alert('There was an error while fetching FullCalendar!');
                 }
             }
         ]
