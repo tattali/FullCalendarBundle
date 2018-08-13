@@ -12,7 +12,7 @@ This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) li
 
 * Symfony 3.4+ or Symfony 4.1+
 * FullCalendar.js v3.9.0
-* No storage dependencies (Doctrine, MongoDB, CouchDB...)
+* No storage dependencies (Compatible with: Doctrine, MongoDB, CouchDB...)
 * PHP v5.6+
 * PHPSpec
 
