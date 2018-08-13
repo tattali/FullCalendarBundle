@@ -277,9 +277,16 @@ class FullCalendarListener
     }
 }
 ```
+Register the listener as a service to listen `fullcalendar.set_data` event
+```yaml
+# app/config/services.yml or config/services.yaml
+services:
+    # ...
 
-* Don't forget to [register the listener](index.md#4-create-your-listener) as a service like in the installation process
-
+    AppBundle\EventListener\FullCalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
+```
 * Now in the calendar when we click on an event it show the `showAction()` that contains an edit and delete link
 
 * And when you create a new `Booking` (or your custom entity name) it appear on the calendar
