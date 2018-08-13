@@ -23,7 +23,7 @@ The source of the documentation is stored in the `doc/` folder in this bundle :
 
 [Read the Documentation](doc/index.md)
 
-[Link the calendar to a CRUD to allow add, edit & show events](doc/doctrine-crud.md)
+[Link the calendar to a CRUD and allow add, edit & show events](doc/doctrine-crud.md)
 
 All the installation instructions are located in the documentation.
 
