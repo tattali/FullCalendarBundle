@@ -1,6 +1,6 @@
 {
     "name": "toiba/fullcalendar-bundle",
-    "description": "Symfony integration of FullCalendar.js library. Events can be stored with Doctrine, MongoDB, CouchDB and others",
+    "description": "Provides event calendar for your Symfony 4 project. Compatible with Doctrine ORM & ODM, and custom storages.",
     "type": "symfony-bundle",
     "keywords": ["calendar", "fullcalendar", "jquery calendar", "symfony calendar"],
     "homepage": "https://github.com/toiba/FullCalendarBundle",
