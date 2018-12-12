@@ -1,7 +1,5 @@
 # Documentation
 
-**Symfony flex users skip steps 2 and 3** because they are done in the recipe
-
 ## Installation
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
@@ -18,6 +16,7 @@ $ composer require toiba/fullcalendar-bundle
 
 ### 2. Enable bundle
 
+Symfony flex users can skip steps 2 and 3 because they are done in the recipe.
 ```php
 // app/AppKernel.php
 public function registerBundles()
@@ -41,7 +40,7 @@ toiba_fullcalendar:
 ### 4. Create your listener
 You need to create a listener class to load your event data into the calendar.
 
-This listener must be called when the event 'fullcalendar.set_data' is launched. For this reason, you will need to add this in your services.yml.
+This listener must be called when the event `fullcalendar.set_data` is launched. For this reason, you will need to add this in your services.yml.
 ```yaml
 # app/config/services.yml or config/services.yaml
 services:
@@ -51,6 +50,7 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
+> Symfony 4 : Do not forget to replace `AppBundle` by `App` 
 
 Then, create the listener class to add events to the calendar
 
@@ -118,8 +118,8 @@ Add styles and js. Click [here](https://fullcalendar.io/download) to see other c
 
 ## Basic functionalities
 
-You may want to customize the FullCalendar javascript to meet your applications needs. To do this, you can copy the following settings and modify them according to your needs. For example, you can pass custom filters to your event listener by adding extra parameters to the filters array
-
+You will probably want to customize the FullCalendar javascript to fit the needs of your application. 
+To do this, you can copy the following settings and modify them by consulting the [fullcalendar.js documentation](https://fullcalendar.io/docs). You can also look at the [options.ts](https://github.com/fullcalendar/fullcalendar/blob/master/src/options.ts) file as an option reference.
 ```js
 $(function () {
     $('#calendar-holder').fullCalendar({
@@ -162,7 +162,7 @@ $(function () {
             end: '18:00',
             dow: [1, 2, 3, 4, 5]
         },
-        defaultView: 'agendaWeek',
+        defaultView: 'agendaWeek', 
         lazyFetching: true,
         navLinks: true,
         selectable: true,
