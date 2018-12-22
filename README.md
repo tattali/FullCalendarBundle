@@ -3,6 +3,7 @@ FullCalendarBundle
 
 [![Packagist](https://poser.pugx.org/toiba/fullcalendar-bundle/version)](https://packagist.org/packages/toiba/fullcalendar-bundle)
 [![Build Status](https://travis-ci.org/toiba/FullCalendarBundle.svg)](https://travis-ci.org/toiba/FullCalendarBundle)
+[![Total Downloads](https://poser.pugx.org/toiba/fullcalendar-bundle/downloads)](https://packagist.org/packages/toiba/fullcalendar-bundle)
 
 This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) library in your Symfony 4 project.
 
