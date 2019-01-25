@@ -120,68 +120,72 @@ Add styles and js. Click [here](https://fullcalendar.io/download) to see other c
 
 You will probably want to customize the FullCalendar javascript to fit the needs of your application. 
 To do this, you can copy the following settings and modify them by consulting the [fullcalendar.js documentation](https://fullcalendar.io/docs). You can also look at the [options.ts](https://github.com/fullcalendar/fullcalendar/blob/master/src/options.ts) file as an option reference.
-```js
-$(function () {
-    $('#calendar-holder').fullCalendar({
-        header: {
-            left: 'prev, next, today',
-            center: 'title',
-            right: 'month, basicWeek, basicDay'
-        },
-        lazyFetching: true,
-        navLinks: true,
-        eventSources: [
-            {
-                url: '/fc-load-events',
-                type: 'POST',
-                data: {
-                    filters: {}
-                },
-                error: function () {
-                    alert('There was an error while fetching FullCalendar!');
+```html
+<script type="text/javascript">
+    $(function () {
+        $('#calendar-holder').fullCalendar({
+            header: {
+                left: 'prev, next, today',
+                center: 'title',
+                right: 'month, basicWeek, basicDay'
+            },
+            lazyFetching: true,
+            navLinks: true,
+            eventSources: [
+                {
+                    url: '/fc-load-events',
+                    type: 'POST',
+                    data: {
+                        filters: {}
+                    },
+                    error: function () {
+                        alert('There was an error while fetching FullCalendar!');
+                    }
                 }
-            }
-        ]
+            ]
+        });
     });
-});
+</script>
 ```
 
 ## Extending Basic functionalities
 
-```js
-$(function () {
-    $('#calendar-holder').fullCalendar({
-        locale: 'fr',
-        header: {
-            left: 'prev, next, today',
-            center: 'title',
-            right: 'month, agendaWeek, agendaDay'
-        },
-        businessHours: {
-            start: '09:00',
-            end: '18:00',
-            dow: [1, 2, 3, 4, 5]
-        },
-        defaultView: 'agendaWeek', 
-        lazyFetching: true,
-        navLinks: true,
-        selectable: true,
-        editable: true,
-        eventDurationEditable: true,
-        eventSources: [
-            {
-                url: '/fc-load-events',
-                type: 'POST',
-                data: {
-                    filters: {}
-                },
-                error: function () {
-                    // alert('There was an error while fetching FullCalendar!');
+```html
+<script type="text/javascript">
+    $(function () {
+        $('#calendar-holder').fullCalendar({
+            locale: 'fr',
+            header: {
+                left: 'prev, next, today',
+                center: 'title',
+                right: 'month, agendaWeek, agendaDay'
+            },
+            businessHours: {
+                start: '09:00',
+                end: '18:00',
+                dow: [1, 2, 3, 4, 5]
+            },
+            defaultView: 'agendaWeek', 
+            lazyFetching: true,
+            navLinks: true,
+            selectable: true,
+            editable: true,
+            eventDurationEditable: true,
+            eventSources: [
+                {
+                    url: '/fc-load-events',
+                    type: 'POST',
+                    data: {
+                        filters: {}
+                    },
+                    error: function () {
+                        // alert('There was an error while fetching FullCalendar!');
+                    }
                 }
-            }
-        ]
+            ]
+        });
     });
-});
+</script>
 ```
 
 ## Troubleshoot AJAX requests
