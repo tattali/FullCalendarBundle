@@ -1,4 +1,4 @@
-FullCalendarBundle
+FullCalendarBundle - jQuery Calendar bundle
 ==================
 
 [![Build Status](https://travis-ci.org/toiba/FullCalendarBundle.svg)](https://travis-ci.org/toiba/FullCalendarBundle)
