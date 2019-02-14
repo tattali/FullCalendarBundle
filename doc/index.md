@@ -96,7 +96,7 @@ Include the html template were you want to display the calendar:
 
 ```twig
 {% block body %}
-    {% include '@FullCalendarCalendar/calendar.html.twig' %}
+    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
 {% endblock %}
 ```
 
