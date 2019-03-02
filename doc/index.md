@@ -50,14 +50,14 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
-> Symfony 4 : Do not forget to replace `AppBundle` by `App` 
+> Symfony 4 : Do not forget to replace `AppBundle` by `App` in all files
 
 Then, create the listener class to add events to the calendar
 
 See the [doctrine listener example](doctrine-listener.md)
 
 ```php
-// src/AppBundle/EventListener/FullCalendarListener.php
+// src/AppBundle/EventListener/FullCalendarListener.php or src/EventListener/FullCalendarListener.php
 <?php
 
 namespace AppBundle\EventListener;
