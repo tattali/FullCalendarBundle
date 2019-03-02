@@ -297,6 +297,9 @@ services:
     - Replace all `Booking` or `booking` by your custom entity name
     - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
     - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
+
+* Symfony 4 : Do not forget to replace `AppBundle` by `App` in all files
+
 <br>
 
 * To debug AJAX requests, show the Network monitor, then reload the page. Finally click on `fc-load-events` and select the `Response` or `Preview` tab
