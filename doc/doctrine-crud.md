@@ -1,6 +1,6 @@
 # Doctrine Basic CRUD example with FullCalendarBundle
 
-**Symfony 4 : Do not forget to replace `AppBundle` by `App` in all files!**
+**Symfony flex : Do not forget to replace `AppBundle` by `App` in all files!**
 
 This example allow you to add, edit & show events with `FullCalendarBundle`
 
@@ -8,6 +8,7 @@ Create an entity with at least a `startDate` and a `title`. You also can add an 
 
 For this example we call it `Booking` entity
 ```php
+// src/AppBundle/Entity/Booking.php or src/Entity/Booking.php
 <?php
 
 namespace AppBundle\Entity;
@@ -92,7 +93,7 @@ php bin/console make:crud
 Create an action and a template to display the calendar
 ```php
 <?php
-
+// src/AppBundle/Controller/BookingController.php or src/Controller/BookingController.php
 namespace AppBundle\Controller;
 
 // use ...
@@ -117,6 +118,7 @@ class BookingController extends Controller
 ```
 the calendar template with a link to the `booking_new` form:
 ```twig
+{# app/Resources/views/booking/calendar.html.twig or templates/booking/calendar.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -171,6 +173,7 @@ To do this modify the listener to access to the router interface
 
 ```php
 <?php
+
 namespace AppBundle\EventListener;
 
 // ...
@@ -206,7 +209,7 @@ $bookingEvent->setUrl(
 Full listener with `Booking` entity. Modify it to fit your needs.
 ```php
 <?php
-
+// src/AppBundle/EventListener/FullCalendarListener.php or src/EventListener/FullCalendarListener.php
 namespace AppBundle\EventListener;
 
 use AppBundle\Entity\Booking;
@@ -298,7 +301,7 @@ services:
     - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
     - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
 
-* Symfony 4 : Do not forget to replace `AppBundle` by `App` in all files
+* Symfony flex : Do not forget to replace `AppBundle` by `App` in all files
 
 <br>
 
