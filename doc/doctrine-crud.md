@@ -1,5 +1,7 @@
 # Doctrine Basic CRUD example with FullCalendarBundle
 
+**Symfony 4 : Do not forget to replace AppBundle by App in all files!**
+
 This example allow you to add, edit & show events with `FullCalendarBundle`
 
 Create an entity with at least a `startDate` and a `title`. You also can add an `endDate`
