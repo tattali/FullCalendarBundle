@@ -1,29 +1,33 @@
 # Doctrine Basic CRUD example with FullCalendarBundle
 
-**Symfony flex : Do not forget to replace `AppBundle` by `App` in all files!**
+**Symfony 3 : Do not forget to replace `App` by `AppBundle` in all files!**
 
-This example allow you to add, edit & show events with `FullCalendarBundle`
+This example allow you to add, edit, delete & show events with `FullCalendarBundle`
 
-Create an entity with at least a `startDate` and a `title`. You also can add an `endDate`
+Create or generate an entity with at least a `startDate` and a `title`. You also can add an `endDate`
+
+```sh
+# Symfony flex (Need the maker: composer req maker)
+php bin/console make:entity
+```
 
 For this example we call it `Booking` entity
 ```php
-// src/AppBundle/Entity/Booking.php or src/Entity/Booking.php
 <?php
-
-namespace AppBundle\Entity;
+// src/Entity/Booking.php
+namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\BookingRepository")
  */
 class Booking
 {
     /**
-     * @ORM\Id()
-     * @ORM\GeneratedValue()
      * @ORM\Column(type="integer")
+     * @ORM\GeneratedValue()
+     * @ORM\Id()
      */
     private $id;
 
@@ -33,52 +37,56 @@ class Booking
     private $beginAt;
 
     /**
-     * @ORM\Column(type="datetime")
+     * @ORM\Column(type="datetime", nullable=true)
      */
-    private $endAt;
+    private $endAt = null;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $title;
 
-
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
 
-    public function getBeginAt()
+    public function getBeginAt(): ?\DateTimeInterface
     {
         return $this->beginAt;
     }
 
-    public function setBeginAt(\DateTime $beginAt)
+    public function setBeginAt(\DateTimeInterface $beginAt): self
     {
         $this->beginAt = $beginAt;
+
+        return $this;
     }
 
-    public function getEndAt()
+    public function getEndAt(): ?\DateTimeInterface
     {
         return $this->endAt;
     }
 
-    public function setEndAt(\DateTime $endAt)
+    public function setEndAt(?\DateTimeInterface $endAt = null): self
     {
         $this->endAt = $endAt;
+
+        return $this;
     }
 
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
 
-    public function setTitle(string $title)
+    public function setTitle(string $title): self
     {
         $this->title = $title;
+
+        return $this;
     }
 }
-
 ```
 
 Then, create or generate a CRUD for your entity by running:
@@ -86,29 +94,29 @@ Then, create or generate a CRUD for your entity by running:
 # Symfony 3
 php bin/console doctrine:generate:crud 
 
-# Symfony flex (Need the maker: composer req maker)
-php bin/console make:crud
+# Symfony flex
+bin/console make:crud Booking
 ```
 
-Create an action and a template to display the calendar
+Modify the controller to create a `calendar()` action and a template to display the calendar
 ```php
 <?php
-// src/AppBundle/Controller/BookingController.php or src/Controller/BookingController.php
-namespace AppBundle\Controller;
+// src/Controller/BookingController.php
+namespace App\Controller;
 
 // use ...
 
 /**
  * @Route("/booking")
  */
-class BookingController extends Controller
+class BookingController extends AbstractController
 {
     // ...
 
     /**
-     * @Route("/calendar", name="booking_calendar")
+     * @Route("/calendar", name="booking_calendar", methods={"GET"})
      */
-    public function calendar()
+    public function calendar(): Response
     {
         return $this->render('booking/calendar.html.twig');
     }
@@ -118,7 +126,7 @@ class BookingController extends Controller
 ```
 the calendar template with a link to the `booking_new` form:
 ```twig
-{# app/Resources/views/booking/calendar.html.twig or templates/booking/calendar.html.twig #}
+{# templates/booking/calendar.html.twig #}
 {% extends 'base.html.twig' %}
 
 {% block body %}
@@ -128,35 +136,36 @@ the calendar template with a link to the `booking_new` form:
 {% endblock %}
 
 {% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css">
 {% endblock %}
 
 {% block javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/fullcalendar.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.9.0/locale-all.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale/fr.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
 
     <script type="text/javascript">
         $(function () {
-            $('#calendar-holder').fullCalendar({
-                locale: 'fr',
+            $("#calendar-holder").fullCalendar({
+                locale: "fr",
                 header: {
-                    left: 'prev, next, today',
-                    center: 'title',
-                    right: 'month, agendaWeek, agendaDay'
+                    left: "prev, next, today",
+                    center: "title",
+                    right: "month, agendaWeek, agendaDay"
                 },
                 lazyFetching: true,
                 navLinks: true,
                 eventSources: [
                     {
                         url: "{{ path('fullcalendar_load_events') }}",
-                        type: 'POST',
+                        type: "POST",
                         data:  {
                             filters: {}
                         },
                         error: function () {
-                            alert('There was an error while fetching FullCalendar!');
+                            alert("There was an error while fetching FullCalendar!");
                         }
                     }
                 ]
@@ -164,7 +173,6 @@ the calendar template with a link to the `booking_new` form:
         });
     </script>
 {% endblock %}
-
 ```
 
 We now have to link the CRUD to the calendar
@@ -174,23 +182,22 @@ To do this modify the listener to access to the router interface
 ```php
 <?php
 
-namespace AppBundle\EventListener;
+namespace App\EventListener;
 
 // ...
+use App\Repository\BookingRepository;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 class FullCalendarListener
 {
-    // ...
-
-    /**
-     * @var UrlGeneratorInterface
-     */
+    private $bookingRepository;
     private $router;
 
-    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $router)
-    {
-        $this->em = $em;
+    public function __construct(
+        BookingRepository $bookingRepository,
+        UrlGeneratorInterface $router
+    ) {
+        $this->bookingRepository = $bookingRepository;
         $this->router = $router;
     }
 
@@ -209,10 +216,11 @@ $bookingEvent->setUrl(
 Full listener with `Booking` entity. Modify it to fit your needs.
 ```php
 <?php
-// src/AppBundle/EventListener/FullCalendarListener.php or src/EventListener/FullCalendarListener.php
-namespace AppBundle\EventListener;
+// src/EventListener/FullCalendarListener.php
+namespace App\EventListener;
 
-use AppBundle\Entity\Booking;
+use App\Entity\Booking;
+use App\Repository\BookingRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Toiba\FullCalendarBundle\Entity\Event;
@@ -220,23 +228,18 @@ use Toiba\FullCalendarBundle\Event\CalendarEvent;
 
 class FullCalendarListener
 {
-    /**
-     * @var EntityManagerInterface
-     */
-    private $em;
-
-    /**
-     * @var UrlGeneratorInterface
-     */
+    private $bookingRepository;
     private $router;
 
-    public function __construct(EntityManagerInterface $em, UrlGeneratorInterface $router)
-    {
-        $this->em = $em;
+    public function __construct(
+        BookingRepository $bookingRepository,
+        UrlGeneratorInterface $router
+    ) {
+        $this->bookingRepository = $bookingRepository;
         $this->router = $router;
     }
 
-    public function loadEvents(CalendarEvent $calendar)
+    public function loadEvents(CalendarEvent $calendar): void
     {
         $startDate = $calendar->getStart();
         $endDate = $calendar->getEnd();
@@ -244,14 +247,16 @@ class FullCalendarListener
 
         // Modify the query to fit to your entity and needs
         // Change b.beginAt by your start date in your custom entity
-        $bookings = $this->em->getRepository(Booking::class)
+        $bookings = $this->bookingRepository
             ->createQueryBuilder('b')
             ->andWhere('b.beginAt BETWEEN :startDate and :endDate')
             ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
             ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
-            ->getQuery()->getResult();
+            ->getQuery()
+            ->getResult()
+        ;
 
-        foreach($bookings as $booking) {
+        foreach ($bookings as $booking) {
 
             // this create the events with your own entity (here booking entity) to populate calendar
             $bookingEvent = new Event(
@@ -271,9 +276,9 @@ class FullCalendarListener
             // $bookingEvent->setCustomField('borderColor', $booking->getColor());
 
             $bookingEvent->setUrl(
-                $this->router->generate('booking_show', array(
+                $this->router->generate('booking_show', [
                     'id' => $booking->getId(),
-                ))
+                ])
             );
 
             // finally, add the booking to the CalendarEvent for displaying on the calendar
@@ -284,24 +289,26 @@ class FullCalendarListener
 ```
 Register the listener as a service to listen `fullcalendar.set_data` event
 ```yaml
-# app/config/services.yml or config/services.yaml
+# config/services.yaml
 services:
     # ...
 
-    AppBundle\EventListener\FullCalendarListener:
+    App\EventListener\FullCalendarListener:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
-* Now in the calendar when we click on an event it show the `showAction()` that contains an edit and delete link
+* Now in the calendar when we click on an event it call the `show()` that contains an edit and delete link
 
 * And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
 * If you have created a custom entity don't forget to modify the listener: 
     - Replace all `Booking` or `booking` by your custom entity name
     - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
-    - Also near the `new Event(` in the `foreach` modify the getters to fit to your needs and entity
+    - Also near the `new Event(` in the `foreach` modify the getters to fit with your entity
 
-* Symfony flex : Do not forget to replace `AppBundle` by `App` in all files
+* You may want to customize the fullcalendar.js to meet your application needs. To do this, see the [official fullcalendar documentation](https://fullcalendar.io/docs#toc) or also look the [extending basic functionalities](https://github.com/toiba/FullCalendarBundle/blob/master/doc/index.md#extending-basic-functionalities) in the bundle documentation.
+
+* Symfony 3 : Do not forget to replace `App` by `AppBundle` in all files
 
 <br>
 
