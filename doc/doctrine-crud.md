@@ -1,20 +1,36 @@
-# Doctrine Basic CRUD example with FullCalendarBundle
+# Basic CRUD example with Doctrine and FullCalendarBundle
 
-**Symfony 3 : Do not forget to replace `App` by `AppBundle` in all files!**
+This example allow you to create, update, delete & show events with `FullCalendarBundle`
 
-This example allow you to add, edit, delete & show events with `FullCalendarBundle`
+## Installation
 
-Create or generate an entity with at least a `startDate` and a `title`. You also can add an `endDate`
+1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
+2. [Create your entity](#2-create-your-entity)
+3. [Add styles and scripts in your template](#3-add-styles-and-scripts-in-your-template)
+
+### 1. Download FullCalendarBundle using composer
 
 ```sh
-# Symfony flex (Need the maker: composer req maker)
+$ composer require toiba/fullcalendar-bundle
+```
+The recipe will import the routes for you
+
+### 2. Create your entity
+
+Generate or create an entity with at least a *start date* and a *title*. You also can add an *end date*
+
+```sh
+# Symfony flex (Need the maker: `composer req maker`)
 php bin/console make:entity
 ```
 
-For this example we call it `Booking` entity
+> NOTE: If you create it without generator do not forget the repository class
+
+For this example we call the entity `Booking`
 ```php
-<?php
 // src/Entity/Booking.php
+<?php
+
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
@@ -91,20 +107,23 @@ class Booking
 
 Then, create or generate a CRUD for your entity by running:
 ```sh
-# Symfony 3
-php bin/console doctrine:generate:crud 
-
-# Symfony flex
-bin/console make:crud Booking
+php bin/console make:crud Booking
 ```
 
-Modify the controller to create a `calendar()` action and a template to display the calendar
+Edit the `BookingController` by adding a `calendar()` action to display the calendar
 ```php
-<?php
 // src/Controller/BookingController.php
+<?php
+
 namespace App\Controller;
 
-// use ...
+use App\Entity\Booking;
+use App\Form\BookingType;
+use App\Repository\BookingRepository;
+use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\Routing\Annotation\Route;
 
 /**
  * @Route("/booking")
@@ -124,7 +143,10 @@ class BookingController extends AbstractController
     // ...
 }
 ```
-the calendar template with a link to the `booking_new` form:
+
+Then create the calendar template
+
+and with a link to the `booking_new` form and the `calendar-holder`
 ```twig
 {# templates/booking/calendar.html.twig #}
 {% extends 'base.html.twig' %}
@@ -175,11 +197,11 @@ the calendar template with a link to the `booking_new` form:
 {% endblock %}
 ```
 
-We now have to link the CRUD to the calendar
+We now have to link the CRUD to the calendar by adding the `booking_show` link in each events
 
-To do this modify the listener to access to the router interface
-
+To do this create a listener with access to the router component and your entity repository
 ```php
+// src/EventListener/FullCalendarListener.php
 <?php
 
 namespace App\EventListener;
@@ -204,24 +226,24 @@ class FullCalendarListener
     // ...
 ```
 
-Then use `setUrl()` on your `Event` object variable to link event to the show action
+Then use `setUrl()` on each created event to link them to their own show action
 ```php
 $bookingEvent->setUrl(
-    $this->router->generate('booking_show', array(
+    $this->router->generate('booking_show', [
         'id' => $booking->getId(),
-    ))
+    ])
 );
 ```
 
 Full listener with `Booking` entity. Modify it to fit your needs.
 ```php
-<?php
 // src/EventListener/FullCalendarListener.php
+<?php
+
 namespace App\EventListener;
 
 use App\Entity\Booking;
 use App\Repository\BookingRepository;
-use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Toiba\FullCalendarBundle\Entity\Event;
 use Toiba\FullCalendarBundle\Event\CalendarEvent;
@@ -287,6 +309,7 @@ class FullCalendarListener
     }
 }
 ```
+
 Register the listener as a service to listen `fullcalendar.set_data` event
 ```yaml
 # config/services.yaml
@@ -297,18 +320,18 @@ services:
         tags:
             - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
-* Now in the calendar when we click on an event it call the `show()` that contains an edit and delete link
+* Now visit: http://localhost:8000/booking/calendar
+
+* In the calendar when you click on an event it call the `show()` action that should contains an edit and delete link
 
 * And when you create a new `Booking` (or your custom entity name) it appear on the calendar
 
-* If you have created a custom entity don't forget to modify the listener: 
+* If you have created a custom entity don't forget to modify the listener:
     - Replace all `Booking` or `booking` by your custom entity name
-    - In the query near the `andWhere` modify `beginAt` to your custom start event date attribute
-    - Also near the `new Event(` in the `foreach` modify the getters to fit with your entity
+    - In the query near the `andWhere` modify `beginAt` to your custom start date property
+    - Also when you create each `Event` in the `foreach` modify the getters to fit with your entity
 
-* You may want to customize the fullcalendar.js to meet your application needs. To do this, see the [official fullcalendar documentation](https://fullcalendar.io/docs#toc) or also look the [extending basic functionalities](https://github.com/toiba/FullCalendarBundle/blob/master/doc/index.md#extending-basic-functionalities) in the bundle documentation.
-
-* Symfony 3 : Do not forget to replace `App` by `AppBundle` in all files
+* You may want to customize the fullcalendar.js settings to meet your application needs. To do this, see the [official fullcalendar documentation](https://fullcalendar.io/docs#toc) or also look the [extending basic functionalities](https://github.com/toiba/FullCalendarBundle/blob/master/doc/index.md#extending-basic-functionalities) in the bundle documentation.
 
 <br>
 

@@ -1,5 +1,5 @@
 FullCalendarBundle - jQuery Calendar bundle
-==================
+===========================================
 
 [![Total Downloads](https://poser.pugx.org/toiba/fullcalendar-bundle/downloads)](https://packagist.org/packages/toiba/fullcalendar-bundle)
 [![Packagist](https://poser.pugx.org/toiba/fullcalendar-bundle/version)](https://packagist.org/packages/toiba/fullcalendar-bundle)
@@ -11,8 +11,7 @@ This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) li
   <img src="https://user-images.githubusercontent.com/10502887/43464490-8499d962-94db-11e8-8455-f688c2e7ad1d.png" alt="FullCalendar image">
 </div>
 
-* Symfony 3.4+ or Symfony 4.1+
-* FullCalendar.js v3.9.0
+* Symfony 3.4+ or Symfony 4.0+
 * No storage dependencies (Compatible with: Doctrine, MongoDB, CouchDB...)
 * PHP v5.6+
 * PHPSpec
@@ -24,7 +23,9 @@ The source of the documentation is stored in the `doc/` folder in this bundle :
 
 [Read the Documentation](doc/index.md)
 
-[Link the calendar to a CRUD and allow add, edit & show events](doc/doctrine-crud.md)
+[Link the calendar to a CRUD and allow create, update, delete & show events](doc/doctrine-crud.md)
+
+[Symfony 3.4 installation](doc/sf3-4.md)
 
 All the installation instructions are located in the documentation.
 
