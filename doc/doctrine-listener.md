@@ -18,14 +18,11 @@ use Toiba\FullCalendarBundle\Event\CalendarEvent;
 class FullCalendarListener
 {
     private $bookingRepository;
-    private $router;
 
     public function __construct(
-        BookingRepository $bookingRepository,
-        UrlGeneratorInterface $router
+        BookingRepository $bookingRepository
     ) {
         $this->bookingRepository = $bookingRepository;
-        $this->router = $router;
     }
 
     public function loadEvents(CalendarEvent $calendar): void
@@ -63,12 +60,6 @@ class FullCalendarListener
             // $bookingEvent->setUrl('http://www.google.com');
             // $bookingEvent->setBackgroundColor($booking->getColor());
             // $bookingEvent->setCustomField('borderColor', $booking->getColor());
-
-            $bookingEvent->setUrl(
-                $this->router->generate('booking_show', [
-                    'id' => $booking->getId(),
-                ])
-            );
 
             // finally, add the booking to the CalendarEvent for displaying on the calendar
             $calendar->addEvent($bookingEvent);
