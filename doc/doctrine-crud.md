@@ -5,8 +5,7 @@ This example allow you to create, update, delete & show events with `FullCalenda
 ## Installation
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
-2. [Create your entity](#2-create-your-entity)
-3. [Add styles and scripts in your template](#3-add-styles-and-scripts-in-your-template)
+2. [Create the structure](#2-create-the-structure)
 
 ### 1. Download FullCalendarBundle using composer
 
@@ -15,7 +14,7 @@ $ composer require toiba/fullcalendar-bundle
 ```
 The recipe will import the routes for you
 
-### 2. Create your entity
+### 2. Create the structure
 
 Generate or create an entity with at least a *start date* and a *title*. You also can add an *end date*
 
@@ -24,7 +23,7 @@ Generate or create an entity with at least a *start date* and a *title*. You als
 php bin/console make:entity
 ```
 
-> NOTE: If you create it without generator do not forget the repository class
+> **NOTE:** If you create it without generator do not forget the repository class
 
 For this example we call the entity `Booking`
 ```php
@@ -165,8 +164,8 @@ and with a link to the `booking_new` form and the `calendar-holder`
 {% block javascripts %}
     <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
     <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale/fr.js"></script>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale/fr.js"></script>
 
     <script type="text/javascript">
         $(function () {
