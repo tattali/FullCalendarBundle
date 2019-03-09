@@ -14,7 +14,7 @@ $ composer require toiba/fullcalendar-bundle
 The recipe will import the routes for you
 
 ### 2. Create your listener
-You need to create a listener class to load your data into the calendar.
+You need to create a listener class to load your data into the calendar and register it as a service.
 
 This listener must be called when the event `fullcalendar.set_data` is launched.
 ```yaml
