@@ -20,10 +20,8 @@ Generate or create an entity with at least a *start date* and a *title*. You als
 
 ```sh
 # Symfony flex (Need the maker: `composer req maker`)
-php bin/console make:entity
+$ php bin/console make:entity
 ```
-
-> **NOTE:** If you create it without generator do not forget the repository class
 
 For this example we call the entity `Booking`
 ```php
@@ -104,7 +102,34 @@ class Booking
 }
 ```
 
-Then, create or generate a CRUD for your entity by running:
+```php
+// src/Repository/BookingRepository.php
+<?php
+
+namespace App\Repository;
+
+use App\Entity\Booking;
+use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Symfony\Bridge\Doctrine\RegistryInterface;
+
+class BookingRepository extends ServiceEntityRepository
+{
+    public function __construct(RegistryInterface $registry)
+    {
+        parent::__construct($registry, Booking::class);
+    }
+}
+```
+
+> **NOTE:** If not update the database url in your `.env` and run `php bin/console doctrine:database:create`
+
+Then, update your database schema
+```
+$ php bin/console doctrine:migration:diff
+$ php bin/console doctrine:migration:migrate -n
+```
+
+And, create or generate a CRUD for your entity by running:
 ```sh
 php bin/console make:crud Booking
 ```
@@ -158,7 +183,6 @@ and with a link to the `booking_new` form and the `calendar-holder`
 
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css">
 {% endblock %}
 
 {% block javascripts %}
@@ -168,28 +192,28 @@ and with a link to the `booking_new` form and the `calendar-holder`
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale/fr.js"></script>
 
     <script type="text/javascript">
-        $(function () {
+        $(document).ready(function() {
             $("#calendar-holder").fullCalendar({
-                locale: "fr",
-                header: {
-                    left: "prev, next, today",
-                    center: "title",
-                    right: "month, agendaWeek, agendaDay"
-                },
-                lazyFetching: true,
-                navLinks: true,
                 eventSources: [
                     {
                         url: "{{ path('fullcalendar_load_events') }}",
                         type: "POST",
-                        data:  {
-                            filters: {}
+                        data: {
+                            filters: {},
                         },
                         error: function () {
-                            alert("There was an error while fetching FullCalendar!");
+                            // alert("There was an error while fetching FullCalendar!");
                         }
                     }
-                ]
+                ],
+                header: {
+                    center: "title",
+                    left: "prev,next today",
+                    right: "month,agendaWeek,agendaDay"
+                },
+                lazyFetching: true,
+                locale: "fr",
+                navLinks: true, // can click day/week names to navigate views
             });
         });
     </script>
@@ -278,7 +302,6 @@ class FullCalendarListener
         ;
 
         foreach ($bookings as $booking) {
-
             // this create the events with your own entity (here booking entity) to populate calendar
             $bookingEvent = new Event(
                 $booking->getTitle(),
