@@ -5,16 +5,21 @@ This example allow you to create, update, delete & show events with `FullCalenda
 ## Installation
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
-2. [Create the structure](#2-create-the-structure)
+2. [Create the crud](#2-create-the-crud)
+3. [Use an event listener to connect all of this together](#3-use-an-event-listener-to-connect-all-of-this-together)
 
 ### 1. Download FullCalendarBundle using composer
+
+This documentation assumes that the doctrine is already installed. 
+
+> **NOTE:** `composer req doctrine` then update the database url in your `.env` and run `bin/console d:d:c`
 
 ```sh
 $ composer require toiba/fullcalendar-bundle
 ```
 The recipe will import the routes for you
 
-### 2. Create the structure
+### 2. Create the CRUD
 
 Generate or create an entity with at least a *start date* and a *title*. You also can add an *end date*
 
@@ -121,8 +126,6 @@ class BookingRepository extends ServiceEntityRepository
 }
 ```
 
-> **NOTE:** If not update the database url in your `.env` and run `php bin/console doctrine:database:create`
-
 Then, update your database schema
 ```
 $ php bin/console doctrine:migration:diff
@@ -219,6 +222,8 @@ and with a link to the `booking_new` form and the `calendar-holder`
     </script>
 {% endblock %}
 ```
+
+### 3. Use an event listener to connect all of this together
 
 We now have to link the CRUD to the calendar by adding the `booking_show` link in each events
 
