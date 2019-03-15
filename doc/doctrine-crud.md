@@ -10,7 +10,7 @@ This example allow you to create, update, delete & show events with `FullCalenda
 
 ### 1. Download FullCalendarBundle using composer
 
-This documentation assumes that the doctrine is already installed. 
+This documentation assumes that doctrine is already installed. 
 
 > **NOTE:** `composer req doctrine` then update the database url in your `.env` and run `bin/console d:d:c`
 
