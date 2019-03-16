@@ -8,6 +8,10 @@
 
 ### 1. Download FullCalendarBundle using composer
 
+This documentation assumes that doctrine is already installed. 
+
+> **NOTE:** `composer req doctrine` then update the database url in your `.env` and run `bin/console d:d:c`
+
 ```sh
 $ composer require toiba/fullcalendar-bundle
 ```
@@ -90,6 +94,37 @@ Add styles and js. Click [here](https://fullcalendar.io/download) to see other c
 
     {# <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale-all.js"></script> #}
 {% endblock %}
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+{% endblock %}
+```
+```twig
+{# templates/booking/calendar.html.twig #}
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <a href="{{ path('booking_new') }}">Create new booking</a>
+
+    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
+{% endblock %}
+
+{% block stylesheets %}
+    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
+    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
+    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
+
+    {# <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale-all.js"></script> #}
+{% endblock %}
 ```
 
 ## Basic functionalities
@@ -98,27 +133,28 @@ You will probably want to customize the FullCalendar javascript to fit the needs
 To do this, you can copy the following settings and modify them by consulting the [fullcalendar.js documentation](https://fullcalendar.io/docs). You can also look at the [options.ts](https://github.com/fullcalendar/fullcalendar/blob/master/src/core/options.ts) file as an option reference.
 ```html
 <script type="text/javascript">
-    $(function () {
-        $('#calendar-holder').fullCalendar({
-            header: {
-                left: 'prev, next, today',
-                center: 'title',
-                right: 'month, basicWeek, basicDay'
-            },
-            lazyFetching: true,
-            navLinks: true,
+    $(document).ready(function() {
+        $("#calendar-holder").fullCalendar({
             eventSources: [
                 {
-                    url: '/fc-load-events',
-                    type: 'POST',
+                    url: "{{ path('fullcalendar_load_events') }}",
+                    type: "POST",
                     data: {
-                        filters: {}
+                        filters: {},
                     },
                     error: function () {
-                        alert('There was an error while fetching FullCalendar!');
+                        // alert("There was an error while fetching FullCalendar!");
                     }
                 }
-            ]
+            ],
+            header: {
+                center: "title",
+                left: "prev,next today",
+                right: "month,agendaWeek,agendaDay"
+            },
+            lazyFetching: true,
+            locale: "fr",
+            navLinks: true, // can click day/week names to navigate views
         });
     });
 </script>
@@ -128,37 +164,36 @@ To do this, you can copy the following settings and modify them by consulting th
 
 ```html
 <script type="text/javascript">
-    $(function () {
-        $('#calendar-holder').fullCalendar({
-            locale: 'fr',
-            header: {
-                left: 'prev, next, today',
-                center: 'title',
-                right: 'month, agendaWeek, agendaDay'
-            },
+    $(document).ready(function() {
+        $("#calendar-holder").fullCalendar({
             businessHours: {
                 start: '09:00',
                 end: '18:00',
                 dow: [1, 2, 3, 4, 5]
             },
             defaultView: 'agendaWeek',
-            lazyFetching: true,
-            navLinks: true,
-            selectable: true,
             editable: true,
             eventDurationEditable: true,
             eventSources: [
                 {
-                    url: '/fc-load-events',
-                    type: 'POST',
+                    url: "{{ path('fullcalendar_load_events') }}",
+                    type: "POST",
                     data: {
-                        filters: {}
+                        filters: {},
                     },
                     error: function () {
-                        // alert('There was an error while fetching FullCalendar!');
+                        // alert("There was an error while fetching FullCalendar!");
                     }
                 }
-            ]
+            ],
+            header: {
+                center: "title",
+                left: "prev,next today",
+                right: "month,agendaWeek,agendaDay"
+            },
+            lazyFetching: true,
+            navLinks: true,
+            selectable: true,
         });
     });
 </script>
