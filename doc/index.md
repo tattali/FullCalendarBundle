@@ -84,38 +84,6 @@ Add styles and js. Click [here](https://fullcalendar.io/download) to see other c
 ```twig
 {% block stylesheets %}
     <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.print.css">
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
-
-    {# <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/locale-all.js"></script> #}
-{% endblock %}
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
-{% endblock %}
-
-{% block javascripts %}
-    <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
-    <script type="text/javascript" src="https://momentjs.com/downloads/moment.min.js"></script>
-    <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.js"></script>
-{% endblock %}
-```
-```twig
-{# templates/booking/calendar.html.twig #}
-{% extends 'base.html.twig' %}
-
-{% block body %}
-    <a href="{{ path('booking_new') }}">Create new booking</a>
-
-    {% include '@FullCalendar/Calendar/calendar.html.twig' %}
-{% endblock %}
-
-{% block stylesheets %}
-    <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/fullcalendar/3.10.0/fullcalendar.min.css">
 {% endblock %}
 
 {% block javascripts %}
