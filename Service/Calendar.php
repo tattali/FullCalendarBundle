@@ -2,8 +2,8 @@
 
 namespace Toiba\FullCalendarBundle\Service;
 
-use Toiba\FullCalendarBundle\Event\CalendarEvent;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
+use Toiba\FullCalendarBundle\Event\CalendarEvent;
 
 class Calendar
 {
@@ -18,24 +18,29 @@ class Calendar
     protected $dispatcher;
 
     /**
-     * @param SerializerInterface $serializer
+     * @param SerializerInterface      $serializer
      * @param EventDispatcherInterface $dispatcher
      */
-    public function __construct(SerializerInterface $serializer, EventDispatcherInterface $dispatcher)
-    {
+    public function __construct(
+        SerializerInterface $serializer,
+        EventDispatcherInterface $dispatcher
+    ) {
         $this->serializer = $serializer;
         $this->dispatcher = $dispatcher;
     }
 
     /**
-     * @param \Datetime $startDate
-     * @param \DateTime $endDate
-     * @param array $filters
+     * @param \DateTimeInterface $startDate
+     * @param \DateTimeInterface $endDate
+     * @param array              $filters
      *
      * @return string json
      */
-    public function getData(\Datetime $startDate, \DateTime $endDate, array $filters = [])
-    {
+    public function getData(
+        \DateTimeInterface $startDate,
+        ?\DateTimeInterface $endDate,
+        array $filters = []
+    ): string {
         /** @var CalendarEvent $event */
         $event = $this->dispatcher->dispatch(
             CalendarEvent::SET_DATA,

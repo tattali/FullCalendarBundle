@@ -9,13 +9,11 @@ use Symfony\Component\HttpFoundation\Response;
 class CalendarController extends Controller
 {
     /**
-     * @link http://fullcalendar.io/docs/event_data/events_json_feed/
-     *
      * @param Request $request
      *
      * @return Response
      */
-    public function loadAction(Request $request)
+    public function load(Request $request): Response
     {
         $startDate = new \DateTime($request->get('start'));
         $endDate = new \DateTime($request->get('end'));
@@ -25,9 +23,12 @@ class CalendarController extends Controller
             $content = $this
                 ->get('fullcalendar.service.calendar')
                 ->getData($startDate, $endDate, $filters);
-            $status = empty($content) ? Response::HTTP_NO_CONTENT : Response::HTTP_OK;
+            $status = empty($content)
+                ? Response::HTTP_NO_CONTENT
+                : Response::HTTP_OK
+            ;
         } catch (\Exception $exception) {
-            $content = json_encode(array('error' => $exception->getMessage()));
+            $content = json_encode(['error' => $exception->getMessage()]);
             $status = Response::HTTP_INTERNAL_SERVER_ERROR;
         }
 

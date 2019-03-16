@@ -2,42 +2,46 @@
 
 namespace spec\Toiba\FullCalendarBundle\Controller;
 
-use Toiba\FullCalendarBundle\Service\Calendar;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Toiba\FullCalendarBundle\Controller\CalendarController;
+use Toiba\FullCalendarBundle\Service\Calendar;
 
 /**
  * @mixin \Toiba\FullCalendarBundle\Controller\CalendarController
  */
 class CalendarControllerSpec extends ObjectBehavior
 {
-    function let(ContainerInterface $container)
+    public function let(ContainerInterface $container)
     {
         $this->setContainer($container);
     }
 
-    function it_is_initializable()
+    public function itIsInitializable()
     {
-        $this->shouldHaveType('Toiba\FullCalendarBundle\Controller\CalendarController');
+        $this->shouldHaveType(CalendarController::class);
     }
 
-    function it_is_a_Symfony_controller()
+    public function itIsASymfonyController()
     {
-        $this->shouldHaveType('Symfony\Bundle\FrameworkBundle\Controller\Controller');
+        $this->shouldHaveType(Controller::class);
     }
 
-    function it_provides_an_events_feed_for_a_calendar(Request $request, Calendar $calendar, ContainerInterface $container)
-    {
+    public function itProvidesAnEventsFeedForACalendar(
+        Request $request,
+        Calendar $calendar,
+        ContainerInterface $container
+    ) {
         $request->get('start')->willReturn('2016-03-01');
         $request->get('end')->willReturn('2016-03-19 15:11:00');
         $request->get('filters', [])->willReturn([]);
 
         $container->get('fullcalendar.service.calendar')->willReturn($calendar);
 
-        $data = <<<JSON
+        $data = <<<'JSON'
 [
   {
     "title": "Birthday!",
@@ -53,7 +57,14 @@ class CalendarControllerSpec extends ObjectBehavior
 ]
 JSON;
 
-        $calendar->getData(new \DateTime('2016-03-01'), new \DateTime('2016-03-19 15:11:00'), [])->willReturn($data);
+        $calendar
+            ->getData(
+                new \DateTime('2016-03-01'),
+                new \DateTime('2016-03-19 15:11:00'),
+                []
+            )
+            ->willReturn($data)
+        ;
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');

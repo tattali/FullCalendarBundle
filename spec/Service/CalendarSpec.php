@@ -7,21 +7,24 @@ use Prophecy\Argument;
 use Symfony\Component\EventDispatcher\EventDispatcherInterface;
 use Toiba\FullCalendarBundle\Entity\Event;
 use Toiba\FullCalendarBundle\Event\CalendarEvent;
+use Toiba\FullCalendarBundle\Service\Calendar;
 use Toiba\FullCalendarBundle\Service\SerializerInterface;
 
 class CalendarSpec extends ObjectBehavior
 {
-    function let(SerializerInterface $serializer, EventDispatcherInterface $dispatcher)
-    {
+    public function let(
+        SerializerInterface $serializer,
+        EventDispatcherInterface $dispatcher
+    ) {
         $this->beConstructedWith($serializer, $dispatcher);
     }
 
-    function it_is_initializable()
+    public function itIsInitializable()
     {
-        $this->shouldHaveType('Toiba\FullCalendarBundle\Service\Calendar');
+        $this->shouldHaveType(Calendar::class);
     }
 
-    function it_gets_a_json_string(
+    public function itGetsAJsonString(
         SerializerInterface $serializer,
         EventDispatcherInterface $dispatcher,
         CalendarEvent $calendarEvent,
@@ -33,7 +36,7 @@ class CalendarSpec extends ObjectBehavior
         $json = '{ [events: foo] }';
 
         $dispatcher
-            ->dispatch(CalendarEvent::SET_DATA, Argument::type('Toiba\FullCalendarBundle\Event\CalendarEvent'))
+            ->dispatch(CalendarEvent::SET_DATA, Argument::type(CalendarEvent::class))
             ->shouldBeCalled()
             ->willReturn($calendarEvent);
 

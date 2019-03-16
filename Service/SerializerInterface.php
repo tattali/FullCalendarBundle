@@ -11,5 +11,5 @@ interface SerializerInterface
      *
      * @return string json
      */
-    public function serialize(array $events);
+    public function serialize(array $events): array;
 }

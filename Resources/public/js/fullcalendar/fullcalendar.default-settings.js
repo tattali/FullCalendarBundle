@@ -15,7 +15,7 @@ $(function () {
                 url: '/full-calendar/load',
                 type: 'POST',
                 data: {},
-                error: function () {}
+                error: () => {}
             }
         ]
     });

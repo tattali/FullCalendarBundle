@@ -2,20 +2,20 @@
 
 namespace Toiba\FullCalendarBundle\Event;
 
-use Toiba\FullCalendarBundle\Entity\Event;
 use Symfony\Component\EventDispatcher\Event as EventDispatcher;
+use Toiba\FullCalendarBundle\Entity\Event;
 
 class CalendarEvent extends EventDispatcher
 {
     const SET_DATA = 'fullcalendar.set_data';
 
     /**
-     * @var \Datetime
+     * @var \DateTimeInterface
      */
     protected $start;
 
     /**
-     * @var \Datetime
+     * @var \DateTimeInterface
      */
     protected $end;
 
@@ -30,29 +30,32 @@ class CalendarEvent extends EventDispatcher
     protected $events = [];
 
     /**
-     * @param \Datetime $start
-     * @param \Datetime $end
-     * @param array $filters
+     * @param \DateTimeInterface $start
+     * @param \DateTimeInterface $end
+     * @param array              $filters
      */
-    public function __construct(\Datetime $start, \Datetime $end, array $filters)
-    {
+    public function __construct(
+        \DateTimeInterface $start,
+        ?\DateTimeInterface $end,
+        array $filters
+    ) {
         $this->start = $start;
         $this->end = $end;
         $this->filters = $filters;
     }
 
     /**
-     * @return \Datetime
+     * @return \DateTimeInterface
      */
-    public function getStart()
+    public function getStart(): ?\DateTimeInterface
     {
         return $this->start;
     }
 
     /**
-     * @return \Datetime
+     * @return \DateTimeInterface
      */
-    public function getEnd()
+    public function getEnd(): ?\DateTimeInterface
     {
         return $this->end;
     }
@@ -60,7 +63,7 @@ class CalendarEvent extends EventDispatcher
     /**
      * @return array
      */
-    public function getFilters()
+    public function getFilters(): array
     {
         return $this->filters;
     }
@@ -70,7 +73,7 @@ class CalendarEvent extends EventDispatcher
      *
      * @return $this
      */
-    public function addEvent(Event $event)
+    public function addEvent(Event $event): self
     {
         if (!in_array($event, $this->events, true)) {
             $this->events[] = $event;
@@ -82,7 +85,7 @@ class CalendarEvent extends EventDispatcher
     /**
      * @return Event[]
      */
-    public function getEvents()
+    public function getEvents(): array
     {
         return $this->events;
     }

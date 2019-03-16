@@ -2,9 +2,8 @@
 
 namespace spec\Toiba\FullCalendarBundle\Entity;
 
-use Toiba\FullCalendarBundle\Entity\Event;
 use PhpSpec\ObjectBehavior;
-use Prophecy\Argument;
+use Toiba\FullCalendarBundle\Entity\Event;
 
 class EventSpec extends ObjectBehavior
 {
@@ -12,29 +11,28 @@ class EventSpec extends ObjectBehavior
     private $startDate;
     private $endDate;
 
-    function let()
+    public function let()
     {
         $this->startDate = new \DateTime();
         $this->endDate = new \DateTime();
 
-        $this->beAnInstanceOf('spec\Toiba\FullCalendarBundle\Entity\EventTesteable');
+        $this->beAnInstanceOf(EventTesteable::class);
         $this->beConstructedWith($this->title, $this->startDate, $this->endDate);
     }
 
-    function it_is_initializable()
+    public function itIsInitializable()
     {
-        $this->shouldHaveType('Toiba\FullCalendarBundle\Entity\Event');
+        $this->shouldHaveType(Event::class);
     }
 
-
-    function it_has_require_values()
+    public function itHasRequireValues()
     {
         $this->getTitle()->shouldReturn($this->title);
         $this->getStartDate()->shouldReturn($this->startDate);
         $this->getEndDate()->shouldReturn($this->endDate);
     }
 
-    function it_should_convert_its_values_in_to_array()
+    public function itShouldConvertItsValuesInToArray()
     {
         $id = '3516514';
         $url = 'www.url.com';
@@ -61,39 +59,43 @@ class EventSpec extends ObjectBehavior
         $this->setColor($color);
         $this->setCustomField($fieldName, $fieldValue);
 
-        $this->toArray()->shouldReturn([
-            'title' => $this->title,
-            'start' => $this->startDate->format("Y-m-d\TH:i:sP"),
-            'allDay' => true,
-            'editable' => false,
-            'startEditable' => false,
-            'durationEditable' => false,
-            'overlap' => true,
-            'id' => $id,
-            'url' => $url,
-            'backgroundColor' => $bgColor,
-            'textColor' => $txtColor,
-            'className' => $className,
-            'end' => $endDate->format("Y-m-d\TH:i:sP"),
-            'rendering' => $rendering,
-            'constraint' => $constraint,
-            'source' => $source,
-            'color' => $color,
-            'description' => 'bla bla bla'
-        ]);
+        $this->toArray()->shouldReturn(
+            [
+                'title' => $this->title,
+                'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
+                'allDay' => true,
+                'editable' => false,
+                'startEditable' => false,
+                'durationEditable' => false,
+                'overlap' => true,
+                'id' => $id,
+                'url' => $url,
+                'backgroundColor' => $bgColor,
+                'textColor' => $txtColor,
+                'className' => $className,
+                'end' => $endDate->format('Y-m-d\\TH:i:sP'),
+                'rendering' => $rendering,
+                'constraint' => $constraint,
+                'source' => $source,
+                'color' => $color,
+                'description' => 'bla bla bla',
+            ]
+        );
     }
 
-    function it_retunrs_defualt_array_values()
+    public function itReturnsDefualtArrayValues()
     {
-        $this->toArray()->shouldReturn([
-            'title' => $this->title,
-            'start' => $this->startDate->format("Y-m-d\TH:i:sP"),
-            'allDay' => true,
-            'editable' => false,
-            'startEditable' => false,
-            'durationEditable' => false,
-            'overlap' => true
-        ]);
+        $this->toArray()->shouldReturn(
+            [
+                'title' => $this->title,
+                'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
+                'allDay' => true,
+                'editable' => false,
+                'startEditable' => false,
+                'durationEditable' => false,
+                'overlap' => true,
+            ]
+        );
     }
 }
 

@@ -5,98 +5,114 @@ namespace Toiba\FullCalendarBundle\Entity;
 class Event
 {
     /**
-     * @var integer
+     * @var int
      */
     protected $id;
+
     /**
      * @var string
      */
     protected $title;
+
     /**
-     * @var boolean
+     * @var bool
      */
     protected $allDay = true;
+
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
     protected $startDate;
+
     /**
-     * @var \DateTime
+     * @var \DateTimeInterface
      */
-    protected $endDate;
+    protected $endDate = null;
+
     /**
      * @var string
      */
     protected $url;
+
     /**
      * @var string
      */
     protected $className;
+
     /**
-     * @var boolean
+     * @var bool
      */
     protected $editable = false;
+
     /**
-     * @var boolean
+     * @var bool
      */
     protected $startEditable = false;
+
     /**
-     * @var boolean
+     * @var bool
      */
     protected $durationEditable = false;
+
     /**
      * @var string
      */
     protected $rendering;
+
     /**
-     * @var boolean
+     * @var bool
      */
     protected $overlap = true;
+
     /**
-     * @var integer
+     * @var int
      */
     protected $constraint;
+
     /**
      * @var string
      */
     protected $source;
+
     /**
      * @var string
      */
     protected $color;
+
     /**
      * @var string
      */
     protected $backgroundColor;
+
     /**
      * @var string
      */
     protected $textColor;
+
     /**
      * @var array
      */
     protected $customFields = [];
 
     /**
-     * @param string $title
-     * @param \DateTime $start
-     * @param \DateTime $end
+     * @param string             $title
+     * @param \DateTimeInterface $start
+     * @param \DateTimeInterface $end
      */
-    public function __construct($title, \DateTime $start, \DateTime $end = null)
-    {
-        $this->title = $title;
-        $this->startDate = $start;
-
-        if (null !== $end) {
-            $this->endDate = $end;
-            $this->allDay = false;
-        }
+    public function __construct(
+        ?string $title,
+        \DateTimeInterface $start,
+        ?\DateTimeInterface $end = null
+    ) {
+        $this->setTitle($title);
+        $this->setStartDate($start);
+        $this->setEndDate($end);
     }
 
     /**
      * @return int
      */
-    public function getId()
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -104,7 +120,7 @@ class Event
     /**
      * @param int $id
      */
-    public function setId($id)
+    public function setId(?int $id): void
     {
         $this->id = $id;
     }
@@ -112,7 +128,7 @@ class Event
     /**
      * @return string
      */
-    public function getTitle()
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -120,63 +136,66 @@ class Event
     /**
      * @param string $title
      */
-    public function setTitle($title)
+    public function setTitle(?string $title): void
     {
         $this->title = $title;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isAllDay()
+    public function isAllDay(): bool
     {
         return $this->allDay;
     }
 
     /**
-     * @param boolean $allDay
+     * @param bool $allDay
      */
-    public function setAllDay($allDay)
+    public function setAllDay(bool $allDay): void
     {
         $this->allDay = $allDay;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
-    public function getStartDate()
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
 
     /**
-     * @param \DateTime $startDate
+     * @param \DateTimeInterface $startDate
      */
-    public function setStartDate(\DateTime $startDate)
+    public function setStartDate(?\DateTimeInterface $startDate): void
     {
         $this->startDate = $startDate;
     }
 
     /**
-     * @return \DateTime
+     * @return \DateTimeInterface
      */
-    public function getEndDate()
+    public function getEndDate(): ?\DateTimeInterface
     {
         return $this->endDate;
     }
 
     /**
-     * @param \DateTime $endDate
+     * @param \DateTimeInterface $endDate
      */
-    public function setEndDate(\DateTime $endDate)
+    public function setEndDate(?\DateTimeInterface $endDate = null): void
     {
+        if (null !== $endDate) {
+            $this->allDay = false;
+        }
         $this->endDate = $endDate;
     }
 
     /**
      * @return string
      */
-    public function getUrl()
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -184,7 +203,7 @@ class Event
     /**
      * @param string $url
      */
-    public function setUrl($url)
+    public function setUrl(?string $url): void
     {
         $this->url = $url;
     }
@@ -192,7 +211,7 @@ class Event
     /**
      * @return string
      */
-    public function getClassName()
+    public function getClassName(): ?string
     {
         return $this->className;
     }
@@ -200,55 +219,55 @@ class Event
     /**
      * @param string $className
      */
-    public function setClassName($className)
+    public function setClassName(?string $className): void
     {
         $this->className = $className;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isEditable()
+    public function isEditable(): bool
     {
         return $this->editable;
     }
 
     /**
-     * @param boolean $editable
+     * @param bool $editable
      */
-    public function setEditable($editable)
+    public function setEditable(bool $editable): void
     {
         $this->editable = $editable;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isStartEditable()
+    public function isStartEditable(): bool
     {
         return $this->startEditable;
     }
 
     /**
-     * @param boolean $startEditable
+     * @param bool $startEditable
      */
-    public function setStartEditable($startEditable)
+    public function setStartEditable(bool $startEditable): void
     {
         $this->startEditable = $startEditable;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isDurationEditable()
+    public function isDurationEditable(): bool
     {
         return $this->durationEditable;
     }
 
     /**
-     * @param boolean $durationEditable
+     * @param bool $durationEditable
      */
-    public function setDurationEditable($durationEditable)
+    public function setDurationEditable(bool $durationEditable): void
     {
         $this->durationEditable = $durationEditable;
     }
@@ -256,7 +275,7 @@ class Event
     /**
      * @return string
      */
-    public function getRendering()
+    public function getRendering(): ?string
     {
         return $this->rendering;
     }
@@ -264,23 +283,23 @@ class Event
     /**
      * @param string $rendering
      */
-    public function setRendering($rendering)
+    public function setRendering(?string $rendering): void
     {
         $this->rendering = $rendering;
     }
 
     /**
-     * @return boolean
+     * @return bool
      */
-    public function isOverlap()
+    public function isOverlap(): bool
     {
         return $this->overlap;
     }
 
     /**
-     * @param boolean $overlap
+     * @param bool $overlap
      */
-    public function setOverlap($overlap)
+    public function setOverlap(bool $overlap): void
     {
         $this->overlap = $overlap;
     }
@@ -288,7 +307,7 @@ class Event
     /**
      * @return int
      */
-    public function getConstraint()
+    public function getConstraint(): ?int
     {
         return $this->constraint;
     }
@@ -296,7 +315,7 @@ class Event
     /**
      * @param int $constraint
      */
-    public function setConstraint($constraint)
+    public function setConstraint($constraint): void
     {
         $this->constraint = $constraint;
     }
@@ -304,7 +323,7 @@ class Event
     /**
      * @return string
      */
-    public function getSource()
+    public function getSource(): ?string
     {
         return $this->source;
     }
@@ -312,7 +331,7 @@ class Event
     /**
      * @param string $source
      */
-    public function setSource($source)
+    public function setSource(?string $source): void
     {
         $this->source = $source;
     }
@@ -320,7 +339,7 @@ class Event
     /**
      * @return string
      */
-    public function getColor()
+    public function getColor(): ?string
     {
         return $this->color;
     }
@@ -328,7 +347,7 @@ class Event
     /**
      * @param string $color
      */
-    public function setColor($color)
+    public function setColor(?string $color): void
     {
         $this->color = $color;
     }
@@ -336,7 +355,7 @@ class Event
     /**
      * @return string
      */
-    public function getBackgroundColor()
+    public function getBackgroundColor(): ?string
     {
         return $this->backgroundColor;
     }
@@ -344,7 +363,7 @@ class Event
     /**
      * @param string $backgroundColor
      */
-    public function setBackgroundColor($backgroundColor)
+    public function setBackgroundColor(?string $backgroundColor): void
     {
         $this->backgroundColor = $backgroundColor;
     }
@@ -352,7 +371,7 @@ class Event
     /**
      * @return string
      */
-    public function getTextColor()
+    public function getTextColor(): ?string
     {
         return $this->textColor;
     }
@@ -360,7 +379,7 @@ class Event
     /**
      * @param string $textColor
      */
-    public function setTextColor($textColor)
+    public function setTextColor(?string $textColor): void
     {
         $this->textColor = $textColor;
     }
@@ -371,7 +390,7 @@ class Event
      *
      * @return mixed
      */
-    public function setCustomField($name, $value)
+    public function setCustomField($name, $value): void
     {
         $this->customFields[$name] = $value;
     }
@@ -389,7 +408,7 @@ class Event
     /**
      * @return array
      */
-    public function getCustomFields()
+    public function getCustomFields(): array
     {
         return $this->customFields;
     }
@@ -414,17 +433,17 @@ class Event
     /**
      * @return array
      */
-    public function toArray()
+    public function toArray(): array
     {
         $event = [];
 
-        $event['title']             = $this->getTitle();
-        $event['start']             = $this->getStartDate()->format("Y-m-d\TH:i:sP");
-        $event['allDay']            = $this->isAllDay();
-        $event['editable']          = $this->isEditable();
-        $event['startEditable']     = $this->isStartEditable();
-        $event['durationEditable']  = $this->isDurationEditable();
-        $event['overlap']           = $this->isOverlap();
+        $event['title'] = $this->getTitle();
+        $event['start'] = $this->getStartDate()->format('Y-m-d\\TH:i:sP');
+        $event['allDay'] = $this->isAllDay();
+        $event['editable'] = $this->isEditable();
+        $event['startEditable'] = $this->isStartEditable();
+        $event['durationEditable'] = $this->isDurationEditable();
+        $event['overlap'] = $this->isOverlap();
 
         if (null !== $this->getId()) {
             $event['id'] = $this->getId();
@@ -447,7 +466,7 @@ class Event
         }
 
         if (null !== $this->getEndDate()) {
-            $event['end'] = $this->getEndDate()->format("Y-m-d\TH:i:sP");
+            $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
         }
 
         if (null !== $this->getRendering()) {

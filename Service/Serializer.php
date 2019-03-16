@@ -11,7 +11,7 @@ class Serializer implements SerializerInterface
      *
      * @return string json
      */
-    public function serialize(array $events)
+    public function serialize(array $events): string
     {
         $result = [];
 
