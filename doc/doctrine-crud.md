@@ -358,6 +358,8 @@ services:
     - In the query near the `andWhere` modify `beginAt` to your custom start date property
     - Also when you create each `Event` in the `foreach` modify the getters to fit with your entity
 
+### Next steps
+
 * You may want to customize the fullcalendar.js settings to meet your application needs. To do this, see the [official fullcalendar documentation](https://fullcalendar.io/docs#toc) or also look the [extending basic functionalities](https://github.com/toiba/FullCalendarBundle/blob/master/doc/index.md#extending-basic-functionalities) in the bundle documentation.
 
 <br>
