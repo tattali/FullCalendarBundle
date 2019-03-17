@@ -12,8 +12,10 @@ use Toiba\FullCalendarBundle\Service\SerializerInterface;
 
 class CalendarSpec extends ObjectBehavior
 {
-    public function let(SerializerInterface $serializer, EventDispatcherInterface $dispatcher)
-    {
+    public function let(
+        SerializerInterface $serializer,
+        EventDispatcherInterface $dispatcher
+    ) {
         $this->beConstructedWith($serializer, $dispatcher);
     }
 
