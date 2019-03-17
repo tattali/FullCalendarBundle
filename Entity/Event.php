@@ -100,9 +100,9 @@ class Event
      * @param \DateTimeInterface $end
      */
     public function __construct(
-        ?string $title,
+        string $title,
         \DateTimeInterface $start,
-        ?\DateTimeInterface $end = null
+        \DateTimeInterface $end = null
     ) {
         $this->setTitle($title);
         $this->setStartDate($start);
@@ -112,7 +112,7 @@ class Event
     /**
      * @return int
      */
-    public function getId(): ?int
+    public function getId(): int
     {
         return $this->id;
     }
@@ -120,7 +120,7 @@ class Event
     /**
      * @param int $id
      */
-    public function setId(?int $id): void
+    public function setId(int $id): void
     {
         $this->id = $id;
     }
@@ -128,7 +128,7 @@ class Event
     /**
      * @return string
      */
-    public function getTitle(): ?string
+    public function getTitle(): string
     {
         return $this->title;
     }
@@ -136,7 +136,7 @@ class Event
     /**
      * @param string $title
      */
-    public function setTitle(?string $title): void
+    public function setTitle(string $title): void
     {
         $this->title = $title;
     }
@@ -160,7 +160,7 @@ class Event
     /**
      * @return \DateTimeInterface
      */
-    public function getStartDate(): ?\DateTimeInterface
+    public function getStartDate(): \DateTimeInterface
     {
         return $this->startDate;
     }
@@ -168,7 +168,7 @@ class Event
     /**
      * @param \DateTimeInterface $startDate
      */
-    public function setStartDate(?\DateTimeInterface $startDate): void
+    public function setStartDate(\DateTimeInterface $startDate): void
     {
         $this->startDate = $startDate;
     }
@@ -176,7 +176,7 @@ class Event
     /**
      * @return \DateTimeInterface
      */
-    public function getEndDate(): ?\DateTimeInterface
+    public function getEndDate(): \DateTimeInterface
     {
         return $this->endDate;
     }
@@ -184,7 +184,7 @@ class Event
     /**
      * @param \DateTimeInterface $endDate
      */
-    public function setEndDate(?\DateTimeInterface $endDate = null): void
+    public function setEndDate(\DateTimeInterface $endDate = null): void
     {
         if (null !== $endDate) {
             $this->allDay = false;
@@ -195,7 +195,7 @@ class Event
     /**
      * @return string
      */
-    public function getUrl(): ?string
+    public function getUrl(): string
     {
         return $this->url;
     }
@@ -203,7 +203,7 @@ class Event
     /**
      * @param string $url
      */
-    public function setUrl(?string $url): void
+    public function setUrl(string $url): void
     {
         $this->url = $url;
     }
@@ -211,7 +211,7 @@ class Event
     /**
      * @return string
      */
-    public function getClassName(): ?string
+    public function getClassName(): string
     {
         return $this->className;
     }
@@ -219,7 +219,7 @@ class Event
     /**
      * @param string $className
      */
-    public function setClassName(?string $className): void
+    public function setClassName(string $className): void
     {
         $this->className = $className;
     }
@@ -275,7 +275,7 @@ class Event
     /**
      * @return string
      */
-    public function getRendering(): ?string
+    public function getRendering(): string
     {
         return $this->rendering;
     }
@@ -283,7 +283,7 @@ class Event
     /**
      * @param string $rendering
      */
-    public function setRendering(?string $rendering): void
+    public function setRendering(string $rendering): void
     {
         $this->rendering = $rendering;
     }
@@ -307,7 +307,7 @@ class Event
     /**
      * @return int
      */
-    public function getConstraint(): ?int
+    public function getConstraint(): int
     {
         return $this->constraint;
     }
@@ -323,7 +323,7 @@ class Event
     /**
      * @return string
      */
-    public function getSource(): ?string
+    public function getSource(): string
     {
         return $this->source;
     }
@@ -331,7 +331,7 @@ class Event
     /**
      * @param string $source
      */
-    public function setSource(?string $source): void
+    public function setSource(string $source): void
     {
         $this->source = $source;
     }
@@ -339,7 +339,7 @@ class Event
     /**
      * @return string
      */
-    public function getColor(): ?string
+    public function getColor(): string
     {
         return $this->color;
     }
@@ -347,7 +347,7 @@ class Event
     /**
      * @param string $color
      */
-    public function setColor(?string $color): void
+    public function setColor(string $color): void
     {
         $this->color = $color;
     }
@@ -355,7 +355,7 @@ class Event
     /**
      * @return string
      */
-    public function getBackgroundColor(): ?string
+    public function getBackgroundColor(): string
     {
         return $this->backgroundColor;
     }
@@ -363,7 +363,7 @@ class Event
     /**
      * @param string $backgroundColor
      */
-    public function setBackgroundColor(?string $backgroundColor): void
+    public function setBackgroundColor(string $backgroundColor): void
     {
         $this->backgroundColor = $backgroundColor;
     }
@@ -371,7 +371,7 @@ class Event
     /**
      * @return string
      */
-    public function getTextColor(): ?string
+    public function getTextColor(): string
     {
         return $this->textColor;
     }
@@ -379,7 +379,7 @@ class Event
     /**
      * @param string $textColor
      */
-    public function setTextColor(?string $textColor): void
+    public function setTextColor(string $textColor): void
     {
         $this->textColor = $textColor;
     }
