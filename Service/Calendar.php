@@ -38,7 +38,7 @@ class Calendar
      */
     public function getData(
         \DateTimeInterface $startDate,
-        ?\DateTimeInterface $endDate,
+        \DateTimeInterface $endDate,
         array $filters = []
     ): string {
         /** @var CalendarEvent $event */
