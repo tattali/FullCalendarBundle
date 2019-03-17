@@ -3,7 +3,9 @@ FullCalendarBundle - jQuery Calendar bundle
 
 [![Total Downloads](https://poser.pugx.org/toiba/fullcalendar-bundle/downloads)](https://packagist.org/packages/toiba/fullcalendar-bundle)
 [![Packagist](https://poser.pugx.org/toiba/fullcalendar-bundle/version)](https://packagist.org/packages/toiba/fullcalendar-bundle)
-[![Build Status](https://travis-ci.org/toiba/FullCalendarBundle.svg)](https://travis-ci.org/toiba/FullCalendarBundle)
+[![Scrutinizer Code Quality](https://scrutinizer-ci.com/g/toiba/FullCalendarBundle/badges/quality-score.png?b=master)](https://scrutinizer-ci.com/g/toiba/FullCalendarBundle/?branch=master)
+[![Code Coverage](https://scrutinizer-ci.com/g/toiba/FullCalendarBundle/badges/coverage.png?b=master)](https://scrutinizer-ci.com/g/toiba/FullCalendarBundle/?branch=master)
+[![Build Status](https://scrutinizer-ci.com/g/toiba/FullCalendarBundle/badges/build.png?b=master)](https://scrutinizer-ci.com/g/toiba/FullCalendarBundle/build-status/master)
 
 This bundle allow you to integrate [FullCalendar.js](http://fullcalendar.io/) library in your Symfony 4 project.
 

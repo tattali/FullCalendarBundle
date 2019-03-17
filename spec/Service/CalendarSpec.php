@@ -12,19 +12,17 @@ use Toiba\FullCalendarBundle\Service\SerializerInterface;
 
 class CalendarSpec extends ObjectBehavior
 {
-    public function let(
-        SerializerInterface $serializer,
-        EventDispatcherInterface $dispatcher
-    ) {
+    public function let(SerializerInterface $serializer, EventDispatcherInterface $dispatcher)
+    {
         $this->beConstructedWith($serializer, $dispatcher);
     }
 
-    public function itIsInitializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Calendar::class);
     }
 
-    public function itGetsAJsonString(
+    public function it_gets_a_json_string(
         SerializerInterface $serializer,
         EventDispatcherInterface $dispatcher,
         CalendarEvent $calendarEvent,

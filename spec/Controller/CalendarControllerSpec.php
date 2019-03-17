@@ -10,9 +10,6 @@ use Symfony\Component\HttpFoundation\Response;
 use Toiba\FullCalendarBundle\Controller\CalendarController;
 use Toiba\FullCalendarBundle\Service\Calendar;
 
-/**
- * @mixin \Toiba\FullCalendarBundle\Controller\CalendarController
- */
 class CalendarControllerSpec extends ObjectBehavior
 {
     public function let(ContainerInterface $container)
@@ -20,17 +17,17 @@ class CalendarControllerSpec extends ObjectBehavior
         $this->setContainer($container);
     }
 
-    public function itIsInitializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(CalendarController::class);
     }
 
-    public function itIsASymfonyController()
+    public function it_is_a_Symfony_controller()
     {
         $this->shouldHaveType(Controller::class);
     }
 
-    public function itProvidesAnEventsFeedForACalendar(
+    public function it_provides_an_events_feed_for_a_calendar(
         Request $request,
         Calendar $calendar,
         ContainerInterface $container
@@ -57,22 +54,13 @@ class CalendarControllerSpec extends ObjectBehavior
 ]
 JSON;
 
-        $calendar
-            ->getData(
-                new \DateTime('2016-03-01'),
-                new \DateTime('2016-03-19 15:11:00'),
-                []
-            )
-            ->willReturn($data)
-        ;
+        $calendar->getData(new \DateTime('2016-03-01'), new \DateTime('2016-03-19 15:11:00'), [])->willReturn($data);
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
         $response->setContent($data);
         $response->setStatusCode(200);
 
-        // $response->setSharedMaxAge(600);
-
-        $this->loadAction($request)->shouldBeLike($response);
+        $this->load($request)->shouldBeLike($response);
     }
 }
