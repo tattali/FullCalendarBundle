@@ -110,17 +110,17 @@ class Event
     }
 
     /**
-     * @return int
+     * @return int|string
      */
-    public function getId(): ?int
+    public function getId()
     {
         return $this->id;
     }
 
     /**
-     * @param int $id
+     * @param int|string $id
      */
-    public function setId(int $id): void
+    public function setId($id): void
     {
         $this->id = $id;
     }
@@ -203,7 +203,7 @@ class Event
     /**
      * @param string $url
      */
-    public function setUrl(string $url): void
+    public function setUrl(?string $url): void
     {
         $this->url = $url;
     }
@@ -219,7 +219,7 @@ class Event
     /**
      * @param string $className
      */
-    public function setClassName(string $className): void
+    public function setClassName(?string $className): void
     {
         $this->className = $className;
     }
@@ -283,7 +283,7 @@ class Event
     /**
      * @param string $rendering
      */
-    public function setRendering(string $rendering): void
+    public function setRendering(?string $rendering): void
     {
         $this->rendering = $rendering;
     }
@@ -305,17 +305,17 @@ class Event
     }
 
     /**
-     * @return int
+     * @return array
      */
-    public function getConstraint(): ?int
+    public function getConstraint(): ?array
     {
         return $this->constraint;
     }
 
     /**
-     * @param int $constraint
+     * @param array $constraint
      */
-    public function setConstraint($constraint): void
+    public function setConstraint(?array $constraint): void
     {
         $this->constraint = $constraint;
     }
@@ -331,7 +331,7 @@ class Event
     /**
      * @param string $source
      */
-    public function setSource(string $source): void
+    public function setSource(?string $source): void
     {
         $this->source = $source;
     }
@@ -347,7 +347,7 @@ class Event
     /**
      * @param string $color
      */
-    public function setColor(string $color): void
+    public function setColor(?string $color): void
     {
         $this->color = $color;
     }
@@ -363,7 +363,7 @@ class Event
     /**
      * @param string $backgroundColor
      */
-    public function setBackgroundColor(string $backgroundColor): void
+    public function setBackgroundColor(?string $backgroundColor): void
     {
         $this->backgroundColor = $backgroundColor;
     }
@@ -379,7 +379,7 @@ class Event
     /**
      * @param string $textColor
      */
-    public function setTextColor(string $textColor): void
+    public function setTextColor(?string $textColor): void
     {
         $this->textColor = $textColor;
     }
@@ -390,7 +390,7 @@ class Event
      *
      * @return mixed
      */
-    public function setCustomField($name, $value): void
+    public function setCustomField(?string $name, $value): void
     {
         $this->customFields[$name] = $value;
     }
@@ -445,19 +445,45 @@ class Event
         $event['durationEditable'] = $this->isDurationEditable();
         $event['overlap'] = $this->isOverlap();
 
+        if (null !== $this->getId()) {
+            $event['id'] = $this->getId();
+        }
+
+        if (null !== $this->getUrl()) {
+            $event['url'] = $this->getUrl();
+        }
+
+        if (null !== $this->getBackgroundColor()) {
+            $event['backgroundColor'] = $this->getBackgroundColor();
+        }
+
+        if (null !== $this->getTextColor()) {
+            $event['textColor'] = $this->getTextColor();
+        }
+
+        if (null !== $this->getClassName()) {
+            $event['className'] = $this->getClassName();
+        }
+
         if (null !== $this->getEndDate()) {
             $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
         }
 
-        $event['id'] = $this->getId();
-        $event['url'] = $this->getUrl();
-        $event['backgroundColor'] = $this->getBackgroundColor();
-        $event['textColor'] = $this->getTextColor();
-        $event['className'] = $this->getClassName();
-        $event['rendering'] = $this->getRendering();
-        $event['constraint'] = $this->getConstraint();
-        $event['source'] = $this->getSource();
-        $event['color'] = $this->getColor();
+        if (null !== $this->getRendering()) {
+            $event['rendering'] = $this->getRendering();
+        }
+
+        if (null !== $this->getConstraint()) {
+            $event['constraint'] = $this->getConstraint();
+        }
+
+        if (null !== $this->getSource()) {
+            $event['source'] = $this->getSource();
+        }
+
+        if (null !== $this->getColor()) {
+            $event['color'] = $this->getColor();
+        }
 
         foreach ($this->getCustomFields() as $field => $value) {
             $event[$field] = $value;

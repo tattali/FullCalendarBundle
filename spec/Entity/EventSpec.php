@@ -9,10 +9,12 @@ class EventSpec extends ObjectBehavior
 {
     private $title = 'Title';
     private $startDate;
+    private $endDate = null;
 
     public function let()
     {
         $this->startDate = new \DateTime();
+        $this->endDate = new \DateTime();
 
         $this->beAnInstanceOf(EventTesteable::class);
         $this->beConstructedWith($this->title, $this->startDate, $this->endDate);
@@ -27,6 +29,7 @@ class EventSpec extends ObjectBehavior
     {
         $this->getTitle()->shouldReturn($this->title);
         $this->getStartDate()->shouldReturn($this->startDate);
+        $this->getEndDate()->shouldReturn($this->endDate);
     }
 
     public function it_should_convert_its_values_in_to_array()
@@ -34,11 +37,11 @@ class EventSpec extends ObjectBehavior
         $id = '3516514';
         $url = 'www.url.com';
         $bgColor = 'red';
-        $txtColor = 'blue';
+        $textColor = 'blue';
         $className = 'name';
         $endDate = new \DateTime();
         $rendering = 'string';
-        $constraint = 'foo';
+        $constraint = ['foo' => 'bar'];
         $source = 'source';
         $color = 'yellow';
         $fieldName = 'description';
@@ -47,7 +50,7 @@ class EventSpec extends ObjectBehavior
         $this->setId($id);
         $this->setUrl($url);
         $this->setBackgroundColor($bgColor);
-        $this->setTextColor($txtColor);
+        $this->setTextColor($textColor);
         $this->setClassName($className);
         $this->setEndDate($endDate);
         $this->setRendering($rendering);
@@ -56,11 +59,24 @@ class EventSpec extends ObjectBehavior
         $this->setColor($color);
         $this->setCustomField($fieldName, $fieldValue);
 
+        $this->setAllDay(false);
+        $this->setEditable(false);
+        $this->setStartEditable(false);
+        $this->setDurationEditable(false);
+        $this->setOverlap(true);
+
+        $this->setCustomField('be-removed', 'value');
+        $this->removeCustomField('be-removed');
+
+        $this->removeCustomField('no-found-key')->shouldReturn(null);
+
+        $this->getCustomFieldValue($fieldName, $fieldValue)->shouldReturn($fieldValue);
+
         $this->toArray()->shouldReturn(
             [
                 'title' => $this->title,
                 'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
-                'allDay' => true,
+                'allDay' => false,
                 'editable' => false,
                 'startEditable' => false,
                 'durationEditable' => false,
@@ -68,29 +84,30 @@ class EventSpec extends ObjectBehavior
                 'id' => $id,
                 'url' => $url,
                 'backgroundColor' => $bgColor,
-                'textColor' => $txtColor,
+                'textColor' => $textColor,
                 'className' => $className,
-                'end' => $endDate->format('Y-m-d\\TH:i:sP'),
+                'end' => $this->endDate->format('Y-m-d\\TH:i:sP'),
                 'rendering' => $rendering,
                 'constraint' => $constraint,
                 'source' => $source,
                 'color' => $color,
-                'description' => 'bla bla bla',
+                $fieldName => $fieldValue,
             ]
         );
     }
 
-    public function it_retunrs_defualt_array_values()
+    public function it_returns_default_array_values()
     {
         $this->toArray()->shouldReturn(
             [
                 'title' => $this->title,
                 'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
-                'allDay' => true,
+                'allDay' => false,
                 'editable' => false,
                 'startEditable' => false,
                 'durationEditable' => false,
                 'overlap' => true,
+                'end' => $this->endDate->format('Y-m-d\\TH:i:sP'),
             ]
         );
     }

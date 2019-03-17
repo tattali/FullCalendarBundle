@@ -2,4 +2,15 @@ suites:
     main:
         namespace: Toiba\FullCalendarBundle
         psr4_prefix: Toiba\FullCalendarBundle
-        src_path: .
+        src_path: '%paths.config%'
+
+extensions:
+  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
+    format:
+      - html
+      - clover
+    output:
+      html: coverage
+      clover: coverage/coverage.xml
+    whitelist:
+      - .

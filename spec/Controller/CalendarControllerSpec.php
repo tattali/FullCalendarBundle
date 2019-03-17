@@ -70,4 +70,34 @@ JSON;
 
         $this->loadAction($request)->shouldBeLike($response);
     }
+
+    public function it_not_find_any_events(
+        Request $request,
+        Calendar $calendar,
+        ContainerInterface $container
+    ) {
+        $request->get('start')->willReturn('2016-03-01');
+        $request->get('end')->willReturn('2016-03-19 15:11:00');
+        $request->get('filters', [])->willReturn([]);
+
+        $container->get('fullcalendar.service.calendar')->willReturn($calendar);
+
+        $data = '';
+
+        $calendar
+            ->getData(
+                new \DateTime('2016-03-01'),
+                new \DateTime('2016-03-19 15:11:00'),
+                []
+            )
+            ->willReturn($data)
+        ;
+
+        $response = new Response();
+        $response->headers->set('Content-Type', 'application/json');
+        $response->setContent($data);
+        $response->setStatusCode(204);
+
+        $this->loadAction($request)->shouldBeLike($response);
+    }
 }
