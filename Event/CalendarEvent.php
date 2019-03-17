@@ -47,7 +47,7 @@ class CalendarEvent extends EventDispatcher
     /**
      * @return \DateTimeInterface
      */
-    public function getStart(): ?\DateTimeInterface
+    public function getStart(): \DateTimeInterface
     {
         return $this->start;
     }
@@ -55,7 +55,7 @@ class CalendarEvent extends EventDispatcher
     /**
      * @return \DateTimeInterface
      */
-    public function getEnd(): ?\DateTimeInterface
+    public function getEnd(): \DateTimeInterface
     {
         return $this->end;
     }
