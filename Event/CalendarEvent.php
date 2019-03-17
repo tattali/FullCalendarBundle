@@ -36,7 +36,7 @@ class CalendarEvent extends EventDispatcher
      */
     public function __construct(
         \DateTimeInterface $start,
-        ?\DateTimeInterface $end,
+        \DateTimeInterface $end,
         array $filters
     ) {
         $this->start = $start;
