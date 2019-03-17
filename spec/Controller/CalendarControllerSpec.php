@@ -68,6 +68,6 @@ JSON;
         $response->setContent($data);
         $response->setStatusCode(200);
 
-        $this->load($request)->shouldBeLike($response);
+        $this->loadAction($request)->shouldBeLike($response);
     }
 }

@@ -13,7 +13,7 @@ class CalendarController extends Controller
      *
      * @return Response
      */
-    public function load(Request $request): Response
+    public function loadAction(Request $request): Response
     {
         $startDate = new \DateTime($request->get('start'));
         $endDate = new \DateTime($request->get('end'));

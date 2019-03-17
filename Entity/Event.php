@@ -112,7 +112,7 @@ class Event
     /**
      * @return int
      */
-    public function getId(): int
+    public function getId(): ?int
     {
         return $this->id;
     }
@@ -128,7 +128,7 @@ class Event
     /**
      * @return string
      */
-    public function getTitle(): string
+    public function getTitle(): ?string
     {
         return $this->title;
     }
@@ -160,7 +160,7 @@ class Event
     /**
      * @return \DateTimeInterface
      */
-    public function getStartDate(): \DateTimeInterface
+    public function getStartDate(): ?\DateTimeInterface
     {
         return $this->startDate;
     }
@@ -176,7 +176,7 @@ class Event
     /**
      * @return \DateTimeInterface
      */
-    public function getEndDate(): \DateTimeInterface
+    public function getEndDate(): ?\DateTimeInterface
     {
         return $this->endDate;
     }
@@ -195,7 +195,7 @@ class Event
     /**
      * @return string
      */
-    public function getUrl(): string
+    public function getUrl(): ?string
     {
         return $this->url;
     }
@@ -211,7 +211,7 @@ class Event
     /**
      * @return string
      */
-    public function getClassName(): string
+    public function getClassName(): ?string
     {
         return $this->className;
     }
@@ -275,7 +275,7 @@ class Event
     /**
      * @return string
      */
-    public function getRendering(): string
+    public function getRendering(): ?string
     {
         return $this->rendering;
     }
@@ -307,7 +307,7 @@ class Event
     /**
      * @return int
      */
-    public function getConstraint(): int
+    public function getConstraint(): ?int
     {
         return $this->constraint;
     }
@@ -323,7 +323,7 @@ class Event
     /**
      * @return string
      */
-    public function getSource(): string
+    public function getSource(): ?string
     {
         return $this->source;
     }
@@ -339,7 +339,7 @@ class Event
     /**
      * @return string
      */
-    public function getColor(): string
+    public function getColor(): ?string
     {
         return $this->color;
     }
@@ -355,7 +355,7 @@ class Event
     /**
      * @return string
      */
-    public function getBackgroundColor(): string
+    public function getBackgroundColor(): ?string
     {
         return $this->backgroundColor;
     }
@@ -371,7 +371,7 @@ class Event
     /**
      * @return string
      */
-    public function getTextColor(): string
+    public function getTextColor(): ?string
     {
         return $this->textColor;
     }
@@ -445,12 +445,15 @@ class Event
         $event['durationEditable'] = $this->isDurationEditable();
         $event['overlap'] = $this->isOverlap();
 
+        if (null !== $this->getEndDate()) {
+            $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
+        }
+
         $event['id'] = $this->getId();
         $event['url'] = $this->getUrl();
         $event['backgroundColor'] = $this->getBackgroundColor();
         $event['textColor'] = $this->getTextColor();
         $event['className'] = $this->getClassName();
-        $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
         $event['rendering'] = $this->getRendering();
         $event['constraint'] = $this->getConstraint();
         $event['source'] = $this->getSource();
