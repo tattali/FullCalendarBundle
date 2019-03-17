@@ -54,7 +54,14 @@ class CalendarControllerSpec extends ObjectBehavior
 ]
 JSON;
 
-        $calendar->getData(new \DateTime('2016-03-01'), new \DateTime('2016-03-19 15:11:00'), [])->willReturn($data);
+        $calendar
+            ->getData(
+                new \DateTime('2016-03-01'),
+                new \DateTime('2016-03-19 15:11:00'),
+                []
+            )
+            ->willReturn($data)
+        ;
 
         $response = new Response();
         $response->headers->set('Content-Type', 'application/json');
