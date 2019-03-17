@@ -445,45 +445,16 @@ class Event
         $event['durationEditable'] = $this->isDurationEditable();
         $event['overlap'] = $this->isOverlap();
 
-        if (null !== $this->getId()) {
-            $event['id'] = $this->getId();
-        }
-
-        if (null !== $this->getUrl()) {
-            $event['url'] = $this->getUrl();
-        }
-
-        if (null !== $this->getBackgroundColor()) {
-            $event['backgroundColor'] = $this->getBackgroundColor();
-        }
-
-        if (null !== $this->getTextColor()) {
-            $event['textColor'] = $this->getTextColor();
-        }
-
-        if (null !== $this->getClassName()) {
-            $event['className'] = $this->getClassName();
-        }
-
-        if (null !== $this->getEndDate()) {
-            $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
-        }
-
-        if (null !== $this->getRendering()) {
-            $event['rendering'] = $this->getRendering();
-        }
-
-        if (null !== $this->getConstraint()) {
-            $event['constraint'] = $this->getConstraint();
-        }
-
-        if (null !== $this->getSource()) {
-            $event['source'] = $this->getSource();
-        }
-
-        if (null !== $this->getColor()) {
-            $event['color'] = $this->getColor();
-        }
+        $event['id'] = $this->getId();
+        $event['url'] = $this->getUrl();
+        $event['backgroundColor'] = $this->getBackgroundColor();
+        $event['textColor'] = $this->getTextColor();
+        $event['className'] = $this->getClassName();
+        $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
+        $event['rendering'] = $this->getRendering();
+        $event['constraint'] = $this->getConstraint();
+        $event['source'] = $this->getSource();
+        $event['color'] = $this->getColor();
 
         foreach ($this->getCustomFields() as $field => $value) {
             $event[$field] = $value;

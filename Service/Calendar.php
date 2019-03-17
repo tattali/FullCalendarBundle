@@ -40,7 +40,7 @@ class Calendar
         \DateTimeInterface $startDate,
         ?\DateTimeInterface $endDate,
         array $filters = []
-    ): string {
+    ): array {
         /** @var CalendarEvent $event */
         $event = $this->dispatcher->dispatch(
             CalendarEvent::SET_DATA,

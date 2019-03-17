@@ -2,14 +2,14 @@
 
 namespace Toiba\FullCalendarBundle\Service;
 
-use Toiba\FullCalendarBundle\Entity\FullCalendarEvent;
+use Toiba\FullCalendarBundle\Entity\Event;
 
 interface SerializerInterface
 {
     /**
-     * @param FullCalendarEvent[] $events
+     * @param Event[] $events
      *
      * @return string json
      */
-    public function serialize(array $events): array;
+    public function serialize(array $events): string;
 }

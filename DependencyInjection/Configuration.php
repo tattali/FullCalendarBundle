@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
     public function getConfigTreeBuilder(): TreeBuilder
     {
         $treeBuilder = new TreeBuilder('fullcalendar');
-        $rootNode = $builder->getRootNode($treeBuilder, 'fullcalendar');
+        $treeBuilder->getRootNode($treeBuilder, 'fullcalendar');
 
         return $treeBuilder;
     }
