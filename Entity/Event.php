@@ -5,7 +5,7 @@ namespace Toiba\FullCalendarBundle\Entity;
 class Event
 {
     /**
-     * @var int
+     * @var int|string
      */
     protected $id;
 
@@ -65,7 +65,7 @@ class Event
     protected $overlap = true;
 
     /**
-     * @var int
+     * @var array
      */
     protected $constraint;
 
