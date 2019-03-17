@@ -9,30 +9,27 @@ class EventSpec extends ObjectBehavior
 {
     private $title = 'Title';
     private $startDate;
-    private $endDate;
 
     public function let()
     {
         $this->startDate = new \DateTime();
-        $this->endDate = new \DateTime();
 
         $this->beAnInstanceOf(EventTesteable::class);
         $this->beConstructedWith($this->title, $this->startDate, $this->endDate);
     }
 
-    public function itIsInitializable()
+    public function it_is_initializable()
     {
         $this->shouldHaveType(Event::class);
     }
 
-    public function itHasRequireValues()
+    public function it_has_require_values()
     {
         $this->getTitle()->shouldReturn($this->title);
         $this->getStartDate()->shouldReturn($this->startDate);
-        $this->getEndDate()->shouldReturn($this->endDate);
     }
 
-    public function itShouldConvertItsValuesInToArray()
+    public function it_should_convert_its_values_in_to_array()
     {
         $id = '3516514';
         $url = 'www.url.com';
@@ -83,7 +80,7 @@ class EventSpec extends ObjectBehavior
         );
     }
 
-    public function itReturnsDefualtArrayValues()
+    public function it_retunrs_defualt_array_values()
     {
         $this->toArray()->shouldReturn(
             [
@@ -97,8 +94,4 @@ class EventSpec extends ObjectBehavior
             ]
         );
     }
-}
-
-class EventTesteable extends Event
-{
 }
