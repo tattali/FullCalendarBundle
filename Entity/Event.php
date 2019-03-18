@@ -32,12 +32,12 @@ class Event
     /**
      * @var string
      */
-    protected $url;
+    protected $url = null;
 
     /**
      * @var string
      */
-    protected $className;
+    protected $className = null;
 
     /**
      * @var bool
@@ -57,7 +57,7 @@ class Event
     /**
      * @var string
      */
-    protected $rendering;
+    protected $rendering = null;
 
     /**
      * @var bool
@@ -67,27 +67,27 @@ class Event
     /**
      * @var array
      */
-    protected $constraint;
+    protected $constraint = null;
 
     /**
      * @var string
      */
-    protected $source;
+    protected $source = null;
 
     /**
      * @var string
      */
-    protected $color;
+    protected $color = null;
 
     /**
      * @var string
      */
-    protected $backgroundColor;
+    protected $backgroundColor = null;
 
     /**
      * @var string
      */
-    protected $textColor;
+    protected $textColor = null;
 
     /**
      * @var array
