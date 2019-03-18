@@ -5,7 +5,7 @@ namespace Toiba\FullCalendarBundle\Entity;
 class Event
 {
     /**
-     * @var int|string
+     * @var null|int|string
      */
     protected $id = null;
 
