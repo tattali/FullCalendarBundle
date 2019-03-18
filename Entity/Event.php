@@ -445,43 +445,43 @@ class Event
         $event['durationEditable'] = $this->isDurationEditable();
         $event['overlap'] = $this->isOverlap();
 
-        if (null !== $this->getId()) {
+        if (null != $this->getId()) {
             $event['id'] = $this->getId();
         }
 
-        if (null !== $this->getUrl()) {
+        if (null != $this->getUrl()) {
             $event['url'] = $this->getUrl();
         }
 
-        if (null !== $this->getBackgroundColor()) {
+        if (null != $this->getBackgroundColor()) {
             $event['backgroundColor'] = $this->getBackgroundColor();
         }
 
-        if (null !== $this->getTextColor()) {
+        if (null != $this->getTextColor()) {
             $event['textColor'] = $this->getTextColor();
         }
 
-        if (null !== $this->getClassName()) {
+        if (null != $this->getClassName()) {
             $event['className'] = $this->getClassName();
         }
 
-        if (null !== $this->getEndDate()) {
+        if (null != $this->getEndDate()) {
             $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
         }
 
-        if (null !== $this->getRendering()) {
+        if (null != $this->getRendering()) {
             $event['rendering'] = $this->getRendering();
         }
 
-        if (null !== $this->getConstraint()) {
+        if (null != $this->getConstraint()) {
             $event['constraint'] = $this->getConstraint();
         }
 
-        if (null !== $this->getSource()) {
+        if (null != $this->getSource()) {
             $event['source'] = $this->getSource();
         }
 
-        if (null !== $this->getColor()) {
+        if (null != $this->getColor()) {
             $event['color'] = $this->getColor();
         }
 
