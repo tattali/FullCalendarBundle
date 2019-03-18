@@ -445,7 +445,7 @@ class Event
         $event['durationEditable'] = $this->isDurationEditable();
         $event['overlap'] = $this->isOverlap();
 
-        if (null != $this->getId()) {
+        if (null !== $this->getId()) {
             $event['id'] = $this->getId();
         }
 
