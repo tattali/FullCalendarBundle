@@ -7,7 +7,7 @@ class Event
     /**
      * @var int|string
      */
-    protected $id;
+    protected $id = null;
 
     /**
      * @var string
