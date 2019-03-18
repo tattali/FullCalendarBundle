@@ -95,20 +95,4 @@ class EventSpec extends ObjectBehavior
             ]
         );
     }
-
-    public function it_returns_default_array_values()
-    {
-        $this->toArray()->shouldReturn(
-            [
-                'title' => $this->title,
-                'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
-                'allDay' => false,
-                'editable' => false,
-                'startEditable' => false,
-                'durationEditable' => false,
-                'overlap' => true,
-                'end' => $this->endDate->format('Y-m-d\\TH:i:sP'),
-            ]
-        );
-    }
 }
