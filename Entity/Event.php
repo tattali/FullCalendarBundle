@@ -110,7 +110,7 @@ class Event
     }
 
     /**
-     * @return int|string
+     * @return null|int|string
      */
     public function getId()
     {
@@ -118,7 +118,7 @@ class Event
     }
 
     /**
-     * @param int|string $id
+     * @param null|int|string $id
      */
     public function setId($id): void
     {
@@ -126,7 +126,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getTitle(): ?string
     {
@@ -158,7 +158,7 @@ class Event
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return null|\DateTimeInterface
      */
     public function getStartDate(): ?\DateTimeInterface
     {
@@ -174,7 +174,7 @@ class Event
     }
 
     /**
-     * @return \DateTimeInterface
+     * @return null|\DateTimeInterface
      */
     public function getEndDate(): ?\DateTimeInterface
     {
@@ -193,7 +193,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getUrl(): ?string
     {
@@ -201,7 +201,7 @@ class Event
     }
 
     /**
-     * @param string $url
+     * @param null|string $url
      */
     public function setUrl(?string $url): void
     {
@@ -209,7 +209,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getClassName(): ?string
     {
@@ -217,7 +217,7 @@ class Event
     }
 
     /**
-     * @param string $className
+     * @param null|string $className
      */
     public function setClassName(?string $className): void
     {
@@ -273,7 +273,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getRendering(): ?string
     {
@@ -281,7 +281,7 @@ class Event
     }
 
     /**
-     * @param string $rendering
+     * @param null|string $rendering
      */
     public function setRendering(?string $rendering): void
     {
@@ -305,7 +305,7 @@ class Event
     }
 
     /**
-     * @return array
+     * @return null|array
      */
     public function getConstraint(): ?array
     {
@@ -313,7 +313,7 @@ class Event
     }
 
     /**
-     * @param array $constraint
+     * @param null|array $constraint
      */
     public function setConstraint(?array $constraint): void
     {
@@ -321,7 +321,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getSource(): ?string
     {
@@ -329,7 +329,7 @@ class Event
     }
 
     /**
-     * @param string $source
+     * @param null|string $source
      */
     public function setSource(?string $source): void
     {
@@ -337,7 +337,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getColor(): ?string
     {
@@ -345,7 +345,7 @@ class Event
     }
 
     /**
-     * @param string $color
+     * @param null|string $color
      */
     public function setColor(?string $color): void
     {
@@ -353,7 +353,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getBackgroundColor(): ?string
     {
@@ -361,7 +361,7 @@ class Event
     }
 
     /**
-     * @param string $backgroundColor
+     * @param null|string $backgroundColor
      */
     public function setBackgroundColor(?string $backgroundColor): void
     {
@@ -369,7 +369,7 @@ class Event
     }
 
     /**
-     * @return string
+     * @return null|string
      */
     public function getTextColor(): ?string
     {
@@ -377,7 +377,7 @@ class Event
     }
 
     /**
-     * @param string $textColor
+     * @param null|string $textColor
      */
     public function setTextColor(?string $textColor): void
     {
@@ -385,22 +385,22 @@ class Event
     }
 
     /**
-     * @param $name
+     * @param string $name
      * @param $value
      *
      * @return mixed
      */
-    public function setCustomField(?string $name, $value): void
+    public function setCustomField(string $name, $value): void
     {
         $this->customFields[$name] = $value;
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return mixed
      */
-    public function getCustomFieldValue($name)
+    public function getCustomFieldValue(string $name)
     {
         return $this->customFields[$name];
     }
@@ -414,11 +414,11 @@ class Event
     }
 
     /**
-     * @param $name
+     * @param string $name
      *
      * @return mixed
      */
-    public function removeCustomField($name)
+    public function removeCustomField(string $name)
     {
         if (!isset($this->customFields[$name]) && !array_key_exists($name, $this->customFields)) {
             return null;
