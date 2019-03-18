@@ -120,7 +120,7 @@ class Event
     /**
      * @param null|int|string $id
      */
-    public function setId($id): void
+    public function setId($id = null): void
     {
         $this->id = $id;
     }
@@ -203,7 +203,7 @@ class Event
     /**
      * @param null|string $url
      */
-    public function setUrl(?string $url): void
+    public function setUrl(?string $url = null): void
     {
         $this->url = $url;
     }
@@ -219,7 +219,7 @@ class Event
     /**
      * @param null|string $className
      */
-    public function setClassName(?string $className): void
+    public function setClassName(?string $className = null): void
     {
         $this->className = $className;
     }
@@ -283,7 +283,7 @@ class Event
     /**
      * @param null|string $rendering
      */
-    public function setRendering(?string $rendering): void
+    public function setRendering(?string $rendering = null): void
     {
         $this->rendering = $rendering;
     }
@@ -315,7 +315,7 @@ class Event
     /**
      * @param null|array $constraint
      */
-    public function setConstraint(?array $constraint): void
+    public function setConstraint(?array $constraint = null): void
     {
         $this->constraint = $constraint;
     }
@@ -331,7 +331,7 @@ class Event
     /**
      * @param null|string $source
      */
-    public function setSource(?string $source): void
+    public function setSource(?string $source = null): void
     {
         $this->source = $source;
     }
@@ -347,7 +347,7 @@ class Event
     /**
      * @param null|string $color
      */
-    public function setColor(?string $color): void
+    public function setColor(?string $color = null): void
     {
         $this->color = $color;
     }
@@ -363,7 +363,7 @@ class Event
     /**
      * @param null|string $backgroundColor
      */
-    public function setBackgroundColor(?string $backgroundColor): void
+    public function setBackgroundColor(?string $backgroundColor = null): void
     {
         $this->backgroundColor = $backgroundColor;
     }
@@ -379,7 +379,7 @@ class Event
     /**
      * @param null|string $textColor
      */
-    public function setTextColor(?string $textColor): void
+    public function setTextColor(?string $textColor = null): void
     {
         $this->textColor = $textColor;
     }
