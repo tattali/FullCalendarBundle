@@ -5,12 +5,12 @@ suites:
         src_path: '%paths.config%'
 
 extensions:
-  LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
-    format:
-      - html
-      - clover
-    output:
-      html: coverage
-      clover: coverage/coverage.xml
-    whitelist:
-      - .
+    LeanPHP\PhpSpec\CodeCoverage\CodeCoverageExtension:
+        format:
+            - html
+            - clover
+        output:
+            html: coverage
+            clover: coverage/coverage.xml
+        whitelist:
+            - .
