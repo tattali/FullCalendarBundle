@@ -437,31 +437,26 @@ class Event
     {
         $event = [];
 
-        $event['title'] = $this->getTitle();
-        $event['start'] = $this->getStartDate()->format('Y-m-d\\TH:i:sP');
         $event['allDay'] = $this->isAllDay();
-        $event['editable'] = $this->isEditable();
-        $event['startEditable'] = $this->isStartEditable();
-        $event['durationEditable'] = $this->isDurationEditable();
-        $event['overlap'] = $this->isOverlap();
-
-        $event['id'] = $this->getId();
-        $event['url'] = $this->getUrl();
         $event['backgroundColor'] = $this->getBackgroundColor();
-        $event['textColor'] = $this->getTextColor();
         $event['className'] = $this->getClassName();
-        $event['rendering'] = $this->getRendering();
-        $event['constraint'] = $this->getConstraint();
-        $event['source'] = $this->getSource();
         $event['color'] = $this->getColor();
+        $event['constraint'] = $this->getConstraint();
+        $event['durationEditable'] = $this->isDurationEditable();
+        $event['editable'] = $this->isEditable();
+        $event['id'] = $this->getId();
+        $event['overlap'] = $this->isOverlap();
+        $event['rendering'] = $this->getRendering();
+        $event['source'] = $this->getSource();
+        $event['start'] = $this->getStartDate()->format('Y-m-d\\TH:i:sP');
+        $event['startEditable'] = $this->isStartEditable();
+        $event['textColor'] = $this->getTextColor();
+        $event['title'] = $this->getTitle();
+        $event['url'] = $this->getUrl();
 
         if (null != $this->getEndDate()) {
             $event['end'] = $this->getEndDate()->format('Y-m-d\\TH:i:sP');
         }
-
-        array_filter($event, function($value) {
-            return null == $value;
-        });
 
         foreach ($this->getCustomFields() as $field => $value) {
             $event[$field] = $value;

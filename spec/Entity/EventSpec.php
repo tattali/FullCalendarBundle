@@ -13,8 +13,8 @@ class EventSpec extends ObjectBehavior
 
     public function let()
     {
-        $this->startDate = new \DateTime();
-        $this->endDate = new \DateTime();
+        $this->startDate = new \DateTime('2019-03-18 08:41:31');
+        $this->endDate = new \DateTime('2019-03-18 08:41:31');
 
         $this->beAnInstanceOf(EventTesteable::class);
         $this->beConstructedWith($this->title, $this->startDate, $this->endDate);
@@ -39,9 +39,8 @@ class EventSpec extends ObjectBehavior
         $bgColor = 'red';
         $textColor = 'blue';
         $className = 'name';
-        $endDate = new \DateTime();
         $rendering = 'string';
-        $constraint = ['foo' => 'bar'];
+        $constraint = null;
         $source = 'source';
         $color = 'yellow';
         $fieldName = 'description';
@@ -52,7 +51,6 @@ class EventSpec extends ObjectBehavior
         $this->setBackgroundColor($bgColor);
         $this->setTextColor($textColor);
         $this->setClassName($className);
-        $this->setEndDate($endDate);
         $this->setRendering($rendering);
         $this->setConstraint($constraint);
         $this->setSource($source);
@@ -74,23 +72,23 @@ class EventSpec extends ObjectBehavior
 
         $this->toArray()->shouldReturn(
             [
-                'title' => $this->title,
-                'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
                 'allDay' => false,
-                'editable' => false,
-                'startEditable' => false,
-                'durationEditable' => false,
-                'overlap' => true,
-                'id' => $id,
-                'url' => $url,
                 'backgroundColor' => $bgColor,
-                'textColor' => $textColor,
                 'className' => $className,
-                'end' => $this->endDate->format('Y-m-d\\TH:i:sP'),
-                'rendering' => $rendering,
-                'constraint' => $constraint,
-                'source' => $source,
                 'color' => $color,
+                'constraint' => $constraint,
+                'durationEditable' => false,
+                'editable' => false,
+                'id' => $id,
+                'overlap' => true,
+                'rendering' => $rendering,
+                'source' => $source,
+                'start' => $this->startDate->format('Y-m-d\\TH:i:sP'),
+                'startEditable' => false,
+                'textColor' => $textColor,
+                'title' => $this->title,
+                'url' => $url,
+                'end' => $this->endDate->format('Y-m-d\\TH:i:sP'),
                 $fieldName => $fieldValue,
             ]
         );
