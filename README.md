@@ -124,33 +124,31 @@ Add styles and js. Click [here](https://fullcalendar.io/download) to see other c
 
 You will probably want to customize the FullCalendar javascript to fit the needs of your application.
 To do this, you can copy the following settings and modify them by consulting the [fullcalendar.js documentation](https://fullcalendar.io/docs). You can also look at the [options.ts](https://github.com/fullcalendar/fullcalendar/blob/master/src/core/options.ts) file as an option reference.
-```html
-<script type="text/javascript">
-    $(document).ready(function() {
-        $("#calendar-holder").fullCalendar({
-            eventSources: [
-                {
-                    url: "/fc-load-events",
-                    type: "POST",
-                    data: {
-                        filters: {},
-                    },
-                    error: function () {
-                        // alert("There was an error while fetching FullCalendar!");
-                    }
+```js
+$(document).ready(function() {
+    $("#calendar-holder").fullCalendar({
+        eventSources: [
+            {
+                url: "/fc-load-events",
+                type: "POST",
+                data: {
+                    filters: {},
+                },
+                error: function () {
+                    // alert("There was an error while fetching FullCalendar!");
                 }
-            ],
-            header: {
-                center: "title",
-                left: "prev,next today",
-                right: "month,agendaWeek,agendaDay"
-            },
-            lazyFetching: true,
-            locale: "fr",
-            navLinks: true, // can click day/week names to navigate views
-        });
+            }
+        ],
+        header: {
+            center: "title",
+            left: "prev,next today",
+            right: "month,agendaWeek,agendaDay"
+        },
+        lazyFetching: true,
+        locale: "fr",
+        navLinks: true, // can click day/week names to navigate views
     });
-</script>
+});
 ```
 
 ### Extending Basic functionalities
