@@ -10,9 +10,9 @@ This documentation assumes that doctrine is already installed.
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
 2. [Create the entity](#2-create-the-entity)
-2. [Create the CRUD](#2-create-the-crud)
-3. [Use an event listener to connect all of this together](#3-use-an-event-listener-to-connect-all-of-this-together)
-4. [Add styles and scripts in your template](#4-add-styles-and-scripts-in-your-template)
+3. [Create the CRUD](#2-create-the-crud)
+4. [Use an event listener to connect all of this together](#4-use-an-event-listener-to-connect-all-of-this-together)
+5. [Display your calendar](#5-display-your-calendar)
 
 ### 1. Download FullCalendarBundle using composer
 
@@ -304,7 +304,7 @@ class FullCalendarListener
 }
 ```
 
-### 4. Display your calendar
+### 5. Display your calendar
 
 Then create the calendar template
 
