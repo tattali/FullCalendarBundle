@@ -376,7 +376,7 @@ Full template:
 
 * If you have created a custom entity don't forget to modify the listener:
     - Replace all `Booking` or `booking` by your custom entity name
-    - In the query near the `andWhere` modify `beginAt` to your custom start date property
+    - In the query near the `where` modify `beginAt` to your custom start date property
     - Also when you create each `Event` in the `foreach` modify the getters to fit with your entity
 
 ### Next steps
