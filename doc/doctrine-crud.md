@@ -2,24 +2,26 @@
 
 This example allow you to create, update, delete & show events with `FullCalendarBundle`
 
-## Installation
-
-1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
-2. [Create the crud](#2-create-the-crud)
-3. [Use an event listener to connect all of this together](#3-use-an-event-listener-to-connect-all-of-this-together)
-
-### 1. Download FullCalendarBundle using composer
-
 This documentation assumes that doctrine is already installed. 
 
 > **NOTE:** `composer req doctrine` then update the database url in your `.env` and run `bin/console d:d:c`
+
+## Installation
+
+1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
+2. [Create the entity](#2-create-the-entity)
+2. [Create the CRUD](#2-create-the-crud)
+3. [Use an event listener to connect all of this together](#3-use-an-event-listener-to-connect-all-of-this-together)
+4. [Add styles and scripts in your template](#4-add-styles-and-scripts-in-your-template)
+
+### 1. Download FullCalendarBundle using composer
 
 ```sh
 $ composer require toiba/fullcalendar-bundle
 ```
 The recipe will import the routes for you
 
-### 2. Create the CRUD
+### 2. Create the entity
 
 Generate or create an entity with at least a *start date* and a *title*. You also can add an *end date*
 
@@ -28,7 +30,7 @@ Generate or create an entity with at least a *start date* and a *title*. You als
 $ php bin/console make:entity
 ```
 
-For this example we call the entity `Booking`
+In this example we call the entity `Booking`
 ```php
 // src/Entity/Booking.php
 <?php
@@ -44,8 +46,8 @@ class Booking
 {
     /**
      * @ORM\Column(type="integer")
-     * @ORM\GeneratedValue()
-     * @ORM\Id()
+     * @ORM\GeneratedValue
+     * @ORM\Id
      */
     private $id;
 
@@ -132,9 +134,14 @@ $ php bin/console doctrine:migration:diff
 $ php bin/console doctrine:migration:migrate -n
 ```
 
-And, create or generate a CRUD of your entity by running:
+
+### 3. Create the CRUD
+You can now create or generate the CRUD of your entity
+
+The following command will generate a `BookingController` with `index()`, `new()`, `show()`, `edit()` and `delete()` actions
+And also the according `templates` and `form`
 ```sh
-php bin/console make:crud Booking
+$ php bin/console make:crud Booking
 ```
 
 Edit the `BookingController` by adding a `calendar()` action to display the calendar
@@ -171,15 +178,143 @@ class BookingController extends AbstractController
 }
 ```
 
+### 4. Use an event listener to connect all of this together
+
+Register the listener as a service to listen `fullcalendar.set_data` event
+```yaml
+# config/services.yaml
+services:
+    # ...
+
+    App\EventListener\FullCalendarListener:
+        tags:
+            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
+```
+
+We now have to link the CRUD to the calendar by adding the `booking_show` route in each events
+
+To do this create a listener with access to the router component and your entity repository
+```php
+// src/EventListener/FullCalendarListener.php
+<?php
+
+namespace App\EventListener;
+
+// ...
+use App\Repository\BookingRepository;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+
+class FullCalendarListener
+{
+    private $bookingRepository;
+    private $router;
+
+    public function __construct(
+        BookingRepository $bookingRepository,
+        UrlGeneratorInterface $router
+    ) {
+        $this->bookingRepository = $bookingRepository;
+        $this->router = $router;
+    }
+
+    // ...
+}
+```
+
+Then use `setUrl()` on each created event to link them to their own show action
+```php
+$bookingEvent->setUrl(
+    $this->router->generate('booking_show', [
+        'id' => $booking->getId(),
+    ])
+);
+```
+
+Full listener with `Booking` entity. Modify it to fit your needs.
+```php
+// src/EventListener/FullCalendarListener.php
+<?php
+
+namespace App\EventListener;
+
+use App\Entity\Booking;
+use App\Repository\BookingRepository;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
+use Toiba\FullCalendarBundle\Entity\Event;
+use Toiba\FullCalendarBundle\Event\CalendarEvent;
+
+class FullCalendarListener
+{
+    private $bookingRepository;
+    private $router;
+
+    public function __construct(
+        BookingRepository $bookingRepository,
+        UrlGeneratorInterface $router
+    ) {
+        $this->bookingRepository = $bookingRepository;
+        $this->router = $router;
+    }
+
+    public function loadEvents(CalendarEvent $calendar): void
+    {
+        $startDate = $calendar->getStart();
+        $endDate = $calendar->getEnd();
+        $filters = $calendar->getFilters();
+
+        // Modify the query to fit to your entity and needs
+        // Change b.beginAt by your start date in your custom entity
+        $bookings = $this->bookingRepository
+            ->createQueryBuilder('booking')
+            ->where('booking.beginAt BETWEEN :startDate and :endDate')
+            ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
+            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
+            ->getQuery()
+            ->getResult()
+        ;
+
+        foreach ($bookings as $booking) {
+            // this create the events with your own entity (here booking entity) to populate calendar
+            $bookingEvent = new Event(
+                $booking->getTitle(),
+                $booking->getBeginAt(),
+                $booking->getEndAt() // If the end date is null or not defined, a all day event is created.
+            );
+
+            /*
+             * Optional calendar event settings
+             *
+             * For more information see : Toiba\FullCalendarBundle\Entity\Event
+             * and : https://fullcalendar.io/docs/event-object
+             */
+            // $bookingEvent->setUrl('http://www.google.com');
+            // $bookingEvent->setBackgroundColor($booking->getColor());
+            // $bookingEvent->setCustomField('borderColor', $booking->getColor());
+
+            $bookingEvent->setUrl(
+                $this->router->generate('booking_show', [
+                    'id' => $booking->getId(),
+                ])
+            );
+
+            // finally, add the booking to the CalendarEvent for displaying on the calendar
+            $calendar->addEvent($bookingEvent);
+        }
+    }
+}
+```
+
+### 4. Display your calendar
+
 Then create the calendar template
 
 add a link to the `booking_new` form 
-```
+```twig
 <a href="{{ path('booking_new') }}">Create new booking</a>
 ```
 
 and include the `calendar-holder` 
-```
+```twig
 {% include '@FullCalendar/Calendar/calendar.html.twig' %}
 ```
 
@@ -231,131 +366,6 @@ Full template:
         });
     </script>
 {% endblock %}
-```
-
-### 3. Use an event listener to connect all of this together
-
-We now have to link the CRUD to the calendar by adding the `booking_show` link in each events
-
-To do this create a listener with access to the router component and your entity repository
-```php
-// src/EventListener/FullCalendarListener.php
-<?php
-
-namespace App\EventListener;
-
-// ...
-use App\Repository\BookingRepository;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-
-class FullCalendarListener
-{
-    private $bookingRepository;
-    private $router;
-
-    public function __construct(
-        BookingRepository $bookingRepository,
-        UrlGeneratorInterface $router
-    ) {
-        $this->bookingRepository = $bookingRepository;
-        $this->router = $router;
-    }
-
-    // ...
-```
-
-Then use `setUrl()` on each created event to link them to their own show action
-```php
-$bookingEvent->setUrl(
-    $this->router->generate('booking_show', [
-        'id' => $booking->getId(),
-    ])
-);
-```
-
-Full listener with `Booking` entity. Modify it to fit your needs.
-```php
-// src/EventListener/FullCalendarListener.php
-<?php
-
-namespace App\EventListener;
-
-use App\Entity\Booking;
-use App\Repository\BookingRepository;
-use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Toiba\FullCalendarBundle\Entity\Event;
-use Toiba\FullCalendarBundle\Event\CalendarEvent;
-
-class FullCalendarListener
-{
-    private $bookingRepository;
-    private $router;
-
-    public function __construct(
-        BookingRepository $bookingRepository,
-        UrlGeneratorInterface $router
-    ) {
-        $this->bookingRepository = $bookingRepository;
-        $this->router = $router;
-    }
-
-    public function loadEvents(CalendarEvent $calendar): void
-    {
-        $startDate = $calendar->getStart();
-        $endDate = $calendar->getEnd();
-        $filters = $calendar->getFilters();
-
-        // Modify the query to fit to your entity and needs
-        // Change b.beginAt by your start date in your custom entity
-        $bookings = $this->bookingRepository
-            ->createQueryBuilder('booking')
-            ->andWhere('booking.beginAt BETWEEN :startDate and :endDate')
-            ->setParameter('startDate', $startDate->format('Y-m-d H:i:s'))
-            ->setParameter('endDate', $endDate->format('Y-m-d H:i:s'))
-            ->getQuery()
-            ->getResult()
-        ;
-
-        foreach ($bookings as $booking) {
-            // this create the events with your own entity (here booking entity) to populate calendar
-            $bookingEvent = new Event(
-                $booking->getTitle(),
-                $booking->getBeginAt(),
-                $booking->getEndAt() // If the end date is null or not defined, a all day event is created.
-            );
-
-            /*
-             * Optional calendar event settings
-             *
-             * For more information see : Toiba\FullCalendarBundle\Entity\Event
-             * and : https://fullcalendar.io/docs/event-object
-             */
-            // $bookingEvent->setUrl('http://www.google.com');
-            // $bookingEvent->setBackgroundColor($booking->getColor());
-            // $bookingEvent->setCustomField('borderColor', $booking->getColor());
-
-            $bookingEvent->setUrl(
-                $this->router->generate('booking_show', [
-                    'id' => $booking->getId(),
-                ])
-            );
-
-            // finally, add the booking to the CalendarEvent for displaying on the calendar
-            $calendar->addEvent($bookingEvent);
-        }
-    }
-}
-```
-
-Register the listener as a service to listen `fullcalendar.set_data` event
-```yaml
-# config/services.yaml
-services:
-    # ...
-
-    App\EventListener\FullCalendarListener:
-        tags:
-            - { name: 'kernel.event_listener', event: 'fullcalendar.set_data', method: loadEvents }
 ```
 * Now visit: http://localhost:8000/booking/calendar
 
