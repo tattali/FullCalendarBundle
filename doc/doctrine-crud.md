@@ -139,6 +139,7 @@ $ php bin/console doctrine:migration:migrate -n
 You can now create or generate the CRUD of your entity
 
 The following command will generate a `BookingController` with `index()`, `new()`, `show()`, `edit()` and `delete()` actions
+
 And also the according `templates` and `form`
 ```sh
 $ php bin/console make:crud Booking
