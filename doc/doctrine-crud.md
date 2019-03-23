@@ -6,7 +6,7 @@ This example allow you to create, update, delete & show events with `FullCalenda
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
 2. [Create the entity](#2-create-the-entity)
-3. [Create the CRUD](#2-create-the-crud)
+3. [Create the CRUD](#3-create-the-crud)
 4. [Use an event listener to connect all of this together](#4-use-an-event-listener-to-connect-all-of-this-together)
 5. [Display your calendar](#5-display-your-calendar)
 
