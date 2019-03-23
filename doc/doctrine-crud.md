@@ -2,10 +2,6 @@
 
 This example allow you to create, update, delete & show events with `FullCalendarBundle`
 
-This documentation assumes that doctrine is already installed. 
-
-> **NOTE:** `composer req doctrine` then update the database url in your `.env` and run `bin/console d:d:c`
-
 ## Installation
 
 1. [Download FullCalendarBundle using composer](#1-download-fullcalendarbundle-using-composer)
@@ -15,6 +11,10 @@ This documentation assumes that doctrine is already installed.
 5. [Display your calendar](#5-display-your-calendar)
 
 ### 1. Download FullCalendarBundle using composer
+
+This documentation assumes that doctrine is already installed. 
+
+> **NOTE:** `composer req doctrine` then update the database url in your `.env` and run `bin/console d:d:c`
 
 ```sh
 $ composer require toiba/fullcalendar-bundle
