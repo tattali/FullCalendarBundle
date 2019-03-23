@@ -132,7 +132,7 @@ $ php bin/console doctrine:migration:diff
 $ php bin/console doctrine:migration:migrate -n
 ```
 
-And, create or generate a CRUD for your entity by running:
+And, create or generate a CRUD of your entity by running:
 ```sh
 php bin/console make:crud Booking
 ```
@@ -173,7 +173,17 @@ class BookingController extends AbstractController
 
 Then create the calendar template
 
-and with a link to the `booking_new` form and the `calendar-holder`
+add a link to the `booking_new` form 
+```
+<a href="{{ path('booking_new') }}">Create new booking</a>
+```
+
+and include the `calendar-holder` 
+```
+{% include '@FullCalendar/Calendar/calendar.html.twig' %}
+```
+
+Full template:
 ```twig
 {# templates/booking/calendar.html.twig #}
 {% extends 'base.html.twig' %}
